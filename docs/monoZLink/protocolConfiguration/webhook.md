@@ -16,7 +16,7 @@ In this guide we assume you have already have an external service ready to recei
 
    2.	Enter your configuration name 
 
-   3.	Enter suitable description for the configuration 
+   3.	Enter suitable description for the configuration  
 
    4.	Enter the HTTP/HTTPS URL for the destination Server 
 
