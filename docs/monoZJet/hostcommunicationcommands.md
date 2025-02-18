@@ -8,7 +8,7 @@ import MDXComponents from '@theme-original/MDXComponents';
 # MZCommands
 
 ### Module Start
-This command is used to initialize monoZ:Jet module and check SIM Status, Configure Band and OrgID, attach to cellular network and open connection with IoT platform using run time value. This command must be used after +MZREADY from monoZ:Jet module. Upon unsuccessful network/IoT connection in first attempt, monoZ:Jet shall send back a failure URC and attempt connection with network/platform 2 more times with unsuccessful URC after every attempt in case of failure. After +MZSTART:0, further +MZSTART URCs can be expected anytime in the event of network or IoT PF disconnect.
+This command initializes the monoZ:Jet module and establish communication with the cellular network and the IoT platform using runtime parameters. If the SIM is not detected, the Band setting is incorrect, or the modem fails to start, an error URC is immediately generated without retries. In the event of a failed network or IoT platform connection, monoZ:Jet will return a failure URC and retry every 5 minutes indefinitely until a successful connection is established. The host can force an exit from this loop through a hardware reset, MZSLEEP=1, or a power shutdown. After +MZSTART:0, additional +MZSTART URCs may be received if there is a network or IoT platform disconnection.
 
 <CodeBlock language="javascript" title="Execution command">
 {`MZSTART `}
