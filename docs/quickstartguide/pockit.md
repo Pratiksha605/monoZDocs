@@ -1,9 +1,8 @@
 ---
-title: Quickstart Guide
-sidebar_position: 4
+title: POC Kit
+sidebar_position: 1
 ---
 
-### POC Kit
 Welcome to the Quickstart Guide for setting up your monoZ POC kit. In this guide we shall cover from POC kit unboxing and demonstrate how to send your first message from your device to monoZ:Link using monoZ:Jet and vice versa. This is a quickstart guide and for detailed description & limitations of individual features/commands, check out the respective sections in monoZ docs site.
 
 ### Prerequisites
