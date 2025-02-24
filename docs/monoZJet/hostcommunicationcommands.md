@@ -14,9 +14,6 @@ This URC is sent by monoZ:Jet to the host upon successful power-on. monoZ:Jet do
 {`+MZREADY`}
 </CodeBlock>
 
-<b>Note:</b>
-1. If host and monoZ:Jet is powered ON at the same time, then there is a possibility the host may miss the +MZREADY message. 
-
 #### Maximum Response Time
 <table>
     <tr>
@@ -25,8 +22,11 @@ This URC is sent by monoZ:Jet to the host upon successful power-on. monoZ:Jet do
     </tr>
   </table>
 
+<b>Note:</b>
+1. If host and monoZ:Jet is powered ON at the same time, then there is a possibility the host may miss the +MZREADY message. 
+
 ### Module Start
-This command initializes the monoZ:Jet module and establish communication with the cellular network and the IoT platform using runtime parameters. If the SIM is not detected, the Band setting is incorrect, or the modem fails to start, an error URC is immediately generated without retries. In the event of a failed network or IoT platform connection, monoZ:Jet will return a failure URC and retry every 5 minutes indefinitely until a successful connection is established. The host can force an exit from this loop through a hardware reset, MZSLEEP=1, or a power shutdown. Upon +MZSTART:0, host can expect +MZSTART URCs in the event of network or IoT platform disconnection.
+This command initializes the monoZ:Jet module and establish communication with the cellular network and the IoT platform using runtime parameters. If the SIM is not detected, the Band setting is incorrect, or the modem fails to start, an error URC is immediately generated without retries. In the event of a failed network or IoT platform connection, monoZ:Jet will return a failure URC and retry every 5 minutes indefinitely until a successful connection is established. The host can force an exit from this loop through a hardware reset, full sleep, or a power shutdown. Upon +MZSTART:0, host can expect +MZSTART URCs in the event of network or IoT platform disconnection.
 
 <CodeBlock language="javascript" title="Execution command">
 {`MZSTART `}
@@ -62,7 +62,7 @@ This command initializes the monoZ:Jet module and establish communication with t
                     1
                     </div>
                     <div className="col col--10">
-                    SIM Not Inserted.
+                    SIM not inserted. Check SIM.
                     </div>
                 </div>
                 <div className="row">
@@ -70,7 +70,7 @@ This command initializes the monoZ:Jet module and establish communication with t
                     2
                     </div>
                     <div className="col col--10">
-                    Band Setting Fail. Check Band setting.
+                    Band setting fail. Check band setting.
                     </div>
                 </div>
                 <div className="row">
@@ -78,7 +78,7 @@ This command initializes the monoZ:Jet module and establish communication with t
                     3
                     </div>
                     <div className="col col--10">
-                    Network Connection Failed. Reattempting Netwok Connection.
+                    Network connection failed. <br/>Reattempting netwok connection.
                     </div>
                 </div>
                 <div className="row">
@@ -86,7 +86,7 @@ This command initializes the monoZ:Jet module and establish communication with t
                     4
                     </div>
                     <div className="col col--10">
-                    IoT Platform Connection Failed. Reattemping Platform Connection.
+                    IoT Platform connection failed. <br/>Reattemping platform connection.
                     </div>
                 </div>
                 <div className="row">
@@ -94,7 +94,7 @@ This command initializes the monoZ:Jet module and establish communication with t
                     5
                     </div>
                     <div className="col col--10">
-                    Modem Start Fail. Perform Hardware Reset. 
+                    Modem start fail. Perform hardware reset. 
                     </div>
                 </div>
             </div>
@@ -136,43 +136,43 @@ This command initializes the monoZ:Jet module and establish communication with t
                 </div>
                 <div className="row">
                     <div className="col col--2">10</div>
-                    <div className="col col--10">  Modem Power ON Success</div>
+                    <div className="col col--10">  Modem Power ON success</div>
                 </div>
                 <div className="row">
                     <div className="col col--2">11 </div>
-                    <div className="col col--10">  Modem Power ON Failed</div>
+                    <div className="col col--10">  Modem Power ON failed</div>
                 </div>
                 <div className="row">
                     <div className="col col--2">12</div>
-                    <div className="col col--10">  Modem Power OFF Success</div>
+                    <div className="col col--10">  Modem Power OFF success</div>
                 </div>
                 <div className="row">
                     <div className="col col--2">13</div>
-                    <div className="col col--10">  Modem Power OFF Failed</div>
+                    <div className="col col--10">  Modem Power OFF failed</div>
                 </div>
                 <div className="row">
                     <div className="col col--2">14</div>
-                    <div className="col col--10">  Modem Band Setting Success</div>
+                    <div className="col col--10">  Modem Band setting success</div>
                 </div>
                 <div className="row">
                     <div className="col col--2">15</div>
-                    <div className="col col--10">  Network Connect Success</div>
+                    <div className="col col--10">  Network connect success</div>
                 </div>
                 <div className="row">
                     <div className="col col--2">16</div>
-                    <div className="col col--10">  Network Disconnect Success</div>
+                    <div className="col col--10">  Network disconnect success</div>
                 </div>
                 <div className="row">
                     <div className="col col--2">17</div>
-                    <div className="col col--10">  Network Disconnect Failed</div>
+                    <div className="col col--10">  Network disconnect failed</div>
                 </div>
                 <div className="row">
                     <div className="col col--2">20</div>
-                    <div className="col col--10">IoT platform open Success</div>
+                    <div className="col col--10">IoT platform open success</div>
                 </div>
                 <div className="row">
                     <div className="col col--2">21</div>
-                    <div className="col col--10">IoT platform open Failed</div>
+                    <div className="col col--10">IoT platform open failed</div>
                 </div>
                 </div>
         </div>
@@ -481,7 +481,7 @@ This command enables monoZ:Jet to open downlink session with IoT platfom. Once e
 <CodeBlock language="javascript" title="Response"  className="responseJet">
 {`MZOK/MZFAIL
 +MZRECEIVE: <r_sts> 
-+MZRECEIVE: <r_sts>,<DL data> 
++MZRECEIVE: <r_sts>,<DL_data> 
 +MZDEBUG: <dbg_sts>`}
 </CodeBlock>
 
@@ -492,7 +492,7 @@ This command enables monoZ:Jet to open downlink session with IoT platfom. Once e
     <div className="card__body">
         <div className='row'> 
             <div className='col col--4'> 
-                `<DL data>`
+                `<DL_data>`
             </div>
             <div className='col col--8'> 
                 String Type.
@@ -652,7 +652,7 @@ This command puts the monoZ:Jet module to different Low Power Modes(LPM).
                     0
                     </div>
                     <div className="col col--10">
-                    Full sleep mode. monoZ:Jet will go to full deep sleep mode after 5 seconds of sending back +MZSLEEP: 0 URC to the host. monoZ:Jet cannot take MZ commands in this mode and wake up is triggered by raising HOST to BOARD_WKP(P407) Pin to HIGH or via power off/on.
+                    Full sleep mode. monoZ:Jet will go to full deep sleep mode within 5 seconds of sending back +MZSLEEP: 0 URC to the host. monoZ:Jet cannot take MZ commands in this mode and wake up is triggered by raising HOST to BOARD_WKP(P407) Pin to HIGH or via power off/on.
                     </div>
                 </div>
                 <div className="row">
@@ -714,27 +714,27 @@ This command puts the monoZ:Jet module to different Low Power Modes(LPM).
                 Integer Type.  
                 <div className="row">
                     <div className="col col--2">12</div>
-                    <div className="col col--10">Modem Power OFF Success</div>
+                    <div className="col col--10">Modem power OFF success</div>
                 </div>
                 <div className="row">
                     <div className="col col--2">13</div>
-                    <div className="col col--10">Modem Power OFF Failed</div>
-                </div>
-                <div className="row">
-                    <div className="col col--2">15</div>
-                    <div className="col col--10">Network Disconnect Success</div>
+                    <div className="col col--10">Modem power OFF failed</div>
                 </div>
                 <div className="row">
                     <div className="col col--2">16</div>
-                    <div className="col col--10">Network Disconnect Failed</div>
+                    <div className="col col--10">Network disconnect success</div>
+                </div>
+                <div className="row">
+                    <div className="col col--2">17</div>
+                    <div className="col col--10">Network disconnect failed</div>
                 </div>
                 <div className="row">
                     <div className="col col--2">50</div>
-                    <div className="col col--10">IoT platform Disconnect Success</div>
+                    <div className="col col--10">IoT platform disconnect success</div>
                 </div>
                 <div className="row">
                     <div className="col col--2">51</div>
-                    <div className="col col--10">IoT platform Disconnect Failed</div>
+                    <div className="col col--10">IoT platform disconnect failed</div>
                 </div>
             </div>
         </div>
@@ -1055,7 +1055,7 @@ This command enables or disables debugging mode on monoZ:Jet. When enabled, the 
                     0
                     </div>
                     <div className="col col--10">
-                    Exit Debugging Mode
+                    Exit Debug Mode
                     </div>
                 </div>
                 <div className="row">
@@ -1063,7 +1063,7 @@ This command enables or disables debugging mode on monoZ:Jet. When enabled, the 
                     1
                     </div>
                     <div className="col col--10">
-                    Enter Debugging Mode
+                    Enter Debug Mode
                     </div>
                 </div>
             </div>
@@ -1075,7 +1075,7 @@ This command enables or disables debugging mode on monoZ:Jet. When enabled, the 
 <table>
     <tr>
         <td>MZOK/MZFAIL</td>
-        <td>1 second</td>
+        <td>2 seconds</td>
     </tr>
    
 </table>
@@ -1093,7 +1093,7 @@ This command enables or disables debugging mode on monoZ:Jet. When enabled, the 
 </div>
 
 ### Set Org ID
-This command configures the Organization ID (ORGID) required for connecting to the monoZ:Link IoT platform. The ORGID is a one-time setting and does not need to be reconfigured after each power cycle. It can only be set before executing MZSTART.
+This command configures the Organization ID (ORGID) required for connecting to the monoZ:Link IoT platform. The ORGID is a one-time setting and does not need to be reconfigured after each power-on cycle. This setting must be done before executing MZSTART.
 
 <CodeBlock language="javascript" title="Execution command">
 {`MZORGID="<org_id>"`}
@@ -1205,7 +1205,7 @@ This command configures the Organization ID (ORGID) required for connecting to t
 </div>
 
 ### Set Band
-This command configures the BAND setting on monoZ:Jet for cellular network connectivity. By default, all supported bands are enabled, and during MZSTART, the module attempts to connect to the network in ascending order of the configured band priority. This setting must be applied before executing MZSTART.
+This command configures the BAND setting on monoZ:Jet for cellular network connectivity. By default, all supported bands are enabled, and during MZSTART, the module attempts to connect to the network in ascending order of the configured band. This setting must be done before executing MZSTART.
 
 <CodeBlock language="javascript" title="Execution command">
 {`MZBAND=<GSM_bandval>,<eMTC_bandval>,<NB_IoT_bandval>`}
@@ -1694,7 +1694,7 @@ Note:
 </table>
 
 ### FOTA - Send FOTA message
-This command allows the host to set a firmware update status message for the OTA server after successful monoZ:Jet initialization via MZSTART. It is typically used to report the latest host firmware version or the outcome of an OTA update. The MZSTARTMSG command can only be executed before MZSTART, and the configured message will be sent as the first payload to the FOTA topic upon connection to the IoT platform.
+This command allows the host to set a firmware update status message for the OTA server after successful monoZ:Jet initialization via MZSTART. It is typically used to report the latest host firmware version or the outcome of an OTA update. The MZSTARTMSG command can only be executed before MZSTART, and the configured message will be sent immediately to the FOTA server upon succesful platform connection.
 
 
 <CodeBlock language="javascript" title="Execution command">
@@ -1751,7 +1751,7 @@ This command allows the host to set a firmware update status message for the OTA
                     0
                     </div>
                     <div className="col col--10">
-                    FOTA message send success
+                    STARTMSG message send success
                     </div>
                 </div>
                <div className="row">
@@ -1759,7 +1759,7 @@ This command allows the host to set a firmware update status message for the OTA
                     1
                     </div>
                     <div className="col col--10">
-                    FOTA message send failed
+                    STARTMSG message send failed
                     </div>
                 </div>
                  <div className="row">
@@ -1767,7 +1767,7 @@ This command allows the host to set a firmware update status message for the OTA
                     2
                     </div>
                     <div className="col col--10">
-                    FOTA message Length exceed
+                    STARTMSG message length exceeds limit
                     </div>
                 </div>
                 <div className="row">
@@ -1775,7 +1775,7 @@ This command allows the host to set a firmware update status message for the OTA
                     3
                     </div>
                     <div className="col col--10">
-                    FOTA message invalid format
+                    STARTMSG message invalid format
                     </div>
                 </div>                
                  </div>
@@ -1813,8 +1813,8 @@ monoZ:Jet pass the FOTA update availability notification & FOTA payload to the h
 
 <CodeBlock language="javascript" title="FOTA update URC"  className="responseJet">
 {`
-+MZFOTARECEIVE: <receive_sts>,dt:<Epoch-Time>,host:<new-version-no>,hostsize:<size-in-Bytes>,hostseg:<total-segments>
-+MZFOTARECEIVE: <receive_sts>,<segment-number>,<payload-format>,<Requested-segment>
++MZFOTARECEIVE: <receive_sts>,dt:<Epoch-Time>,host:<new-version-no>,hostsize:<file-name - size-in-Bytes>,hostseg:<total-segments>
++MZFOTARECEIVE: <receive_sts>,<segment-number>,<payload-format>,<requested-segment>
 +MZDEBUG: <dbg_sts>`}
 </CodeBlock>
 
