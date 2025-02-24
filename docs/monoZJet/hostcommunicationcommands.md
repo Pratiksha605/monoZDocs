@@ -7,8 +7,26 @@ import MDXComponents from '@theme-original/MDXComponents';
   
 # MZCommands
 
+### Module Ready URC
+This URC is sent by monoZ:Jet to the host upon successful power-on. monoZ:Jet does not accept command inputs until this URC is sent back to host. If the host does not receive this URC, a hardware reset or power reboot of monoZ:Jet is recommended.
+
+<CodeBlock language="javascript" title="URC"  className="responseJet">
+{`+MZREADY`}
+</CodeBlock>
+
+<b>Note:</b>
+1. If host and monoZ:Jet is powered ON at the same time, then there is a possibility the host may miss the +MZREADY message. 
+
+#### Maximum Response Time
+<table>
+    <tr>
+        <td>+MZREADY</td>
+        <td>1 second</td>
+    </tr>
+  </table>
+
 ### Module Start
-This command initializes the monoZ:Jet module and establish communication with the cellular network and the IoT platform using runtime parameters. If the SIM is not detected, the Band setting is incorrect, or the modem fails to start, an error URC is immediately generated without retries. In the event of a failed network or IoT platform connection, monoZ:Jet will return a failure URC and retry every 5 minutes indefinitely until a successful connection is established. The host can force an exit from this loop through a hardware reset, MZSLEEP=1, or a power shutdown. After +MZSTART:0, additional +MZSTART URCs may be received if there is a network or IoT platform disconnection.
+This command initializes the monoZ:Jet module and establish communication with the cellular network and the IoT platform using runtime parameters. If the SIM is not detected, the Band setting is incorrect, or the modem fails to start, an error URC is immediately generated without retries. In the event of a failed network or IoT platform connection, monoZ:Jet will return a failure URC and retry every 5 minutes indefinitely until a successful connection is established. The host can force an exit from this loop through a hardware reset, MZSLEEP=1, or a power shutdown. Upon +MZSTART:0, host can expect +MZSTART URCs in the event of network or IoT platform disconnection.
 
 <CodeBlock language="javascript" title="Execution command">
 {`MZSTART `}
@@ -17,7 +35,7 @@ This command initializes the monoZ:Jet module and establish communication with t
 <CodeBlock language="javascript" title="Response"  className="responseJet">
 {`MZOK/MZFAIL
 +MZSTART: <s_sts> 
-+DEBUG: <dbg_sts> `}
++MZDEBUG: <dbg_sts> `}
 </CodeBlock>
 
 
@@ -44,7 +62,7 @@ This command initializes the monoZ:Jet module and establish communication with t
                     1
                     </div>
                     <div className="col col--10">
-                    SIM Not Inserted
+                    SIM Not Inserted.
                     </div>
                 </div>
                 <div className="row">
@@ -52,7 +70,7 @@ This command initializes the monoZ:Jet module and establish communication with t
                     2
                     </div>
                     <div className="col col--10">
-                    Band Setting Fail
+                    Band Setting Fail. Check Band setting.
                     </div>
                 </div>
                 <div className="row">
@@ -60,7 +78,7 @@ This command initializes the monoZ:Jet module and establish communication with t
                     3
                     </div>
                     <div className="col col--10">
-                    Network Connection Fail
+                    Network Connection Failed. Reattempting Netwok Connection.
                     </div>
                 </div>
                 <div className="row">
@@ -68,7 +86,7 @@ This command initializes the monoZ:Jet module and establish communication with t
                     4
                     </div>
                     <div className="col col--10">
-                    IoT Platform Connection Fail
+                    IoT Platform Connection Failed. Reattemping Platform Connection.
                     </div>
                 </div>
                 <div className="row">
@@ -76,7 +94,7 @@ This command initializes the monoZ:Jet module and establish communication with t
                     5
                     </div>
                     <div className="col col--10">
-                    Modem Start Fail
+                    Modem Start Fail. Perform Hardware Reset. 
                     </div>
                 </div>
             </div>
@@ -94,7 +112,7 @@ This command initializes the monoZ:Jet module and establish communication with t
                 Integer Type.  
                 <div className="row">
                     <div className="col col--2">0</div>
-                    <div className="col col--10">  Not registered, MZJ is not currently searching a new operator to register</div>
+                    <div className="col col--10">  Not registered, monoZ:Jet is not currently searching a new operator to register</div>
                 </div>
                 <div className="row">
                     <div className="col col--2">1</div>
@@ -102,7 +120,7 @@ This command initializes the monoZ:Jet module and establish communication with t
                 </div>
                 <div className="row">
                     <div className="col col--2">2</div>
-                    <div className="col col--10">  Not registered, but MZJ is currently searching a new operator to  register</div>
+                    <div className="col col--10">  Not registered, but monoZ:Jet is currently searching a new operator to  register</div>
                 </div>
                 <div className="row">
                     <div className="col col--2">3</div>
@@ -156,15 +174,7 @@ This command initializes the monoZ:Jet module and establish communication with t
                     <div className="col col--2">21</div>
                     <div className="col col--10">IoT platform open Failed</div>
                 </div>
-                <div className="row">
-                    <div className="col col--2">22</div>
-                    <div className="col col--10">IoT platform not connected</div>
                 </div>
-                <div className="row">
-                    <div className="col col--2">23</div>
-                    <div className="col col--10">Network not connected</div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -173,10 +183,10 @@ This command initializes the monoZ:Jet module and establish communication with t
 <table>
     <tr>
         <td>MZOK/MZFAIL</td>
-        <td>1 second</td>
+        <td>2 seconds</td>
     </tr>
     <tr>
-        <td>+MZSTART/+DEBUG</td>
+        <td>+MZSTART/+MZDEBUG</td>
         <td>3 minutes</td>
     </tr>
 </table>
@@ -185,12 +195,14 @@ This command initializes the monoZ:Jet module and establish communication with t
 <div className="card">
     <div className="card__body">
         <h5>Without Debug Mode</h5>
+        Note: Response varies based on network situation.
         <br/>
         
         ```jsx
         +MZREADY
         MZSTART
         MZOK
+        +MZSTART: 3
         +MZSTART: 0
         ```
         
@@ -198,7 +210,8 @@ This command initializes the monoZ:Jet module and establish communication with t
 </div>
 <div className="card">
     <div className="card__body">
-            <h5>With Debug Mode</h5>            
+            <h5>With Debug Mode</h5> 
+            Note: Response varies based on network situation.           
             <br/>
 
             ```jsx
@@ -207,10 +220,10 @@ This command initializes the monoZ:Jet module and establish communication with t
             MZDEBUG=1
             MZOK
             +MZDEBUG: 10
-            +MZDEBUG: 14
-            +MZDEBUG: 10
             +MZDEBUG: 2
             +MZDEBUG: 0
+            +MZDEBUG: 2
+            +MZDEBUG: 2
             +MZDEBUG: 2
             +MZDEBUG: 5
             +MZDEBUG: 15
@@ -220,8 +233,13 @@ This command initializes the monoZ:Jet module and establish communication with t
     </div>
 </div>
 
+<b> Note: </b>
+1. Reception of FOTA from IoT Platform data to monoZ:Jet  will be enabled upon +MZSTART:0
+2. MZBAND & MZORGID setting cannot be set after MZSTART:0 
+
+
 ### Firmware Version
-This command reads the current software version of monoZ:Jet.
+This command reads the current firmware version of monoZ:Jet.
 
 <CodeBlock language="javascript" title="Execution command">
 {`MZVERSION `}
@@ -252,20 +270,18 @@ This command reads the current software version of monoZ:Jet.
 <table>
     <tr>
         <td>MZOK/MZFAIL</td>
-        <td>1 second</td>
+        <td>2 seconds</td>
     </tr>
     <tr>
         <td>+MZVERSION</td>
-        <td>1 second</td>
+        <td>2 seconds</td>
     </tr>
 </table>
 
 #### Usage
 <div className="card">
     <div className="card__body">
-        <h5>Without Debug Mode</h5>
-        <br/>
-        
+                
         ```jsx
         MZVERSION
         MZOK
@@ -276,7 +292,7 @@ This command reads the current software version of monoZ:Jet.
 
 
 ### Data Send
-This command is used to send data to IoT PF through monoZ:Jet. 
+This command transmits payload data to the IoT platform. If an internal timeout occurs, monoZ:Jet automatically retries up to three times at the protocol level before returning a data send failure URC to the host. Following a failure, the module disconnects and reconnects to the network and IoT platform to resolve any potential network or platform related issues. 
 
 <CodeBlock language="javascript" title="Execution command">
 {`MZSEND=<payload> `}
@@ -285,7 +301,7 @@ This command is used to send data to IoT PF through monoZ:Jet.
 <CodeBlock language="javascript" title="Response"  className="responseJet">
 {`MZOK/MZFAIL
 +MZSEND: <send_sts> 
-+DEBUG: <dbg_sts> `}
++MZDEBUG: <dbg_sts> `}
 </CodeBlock>
 
 
@@ -312,14 +328,15 @@ This command is used to send data to IoT PF through monoZ:Jet.
                     Accepted Characters
                     </div>
                     <div className="col col--6">
-                    Alphanumeric, Kanji, “#$%&’()//\<>.,?{}\
-                    There is a possibility certain kanji characters may not be accepted.
+                    Alphanumeric, Kanji, “#$%&’()/\<>.,?{};+-!@
+                    <br/> There is a possibility certain kanji characters may not be accepted.
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <div className="card">
     <div className="card__body">
         <div className="row">
@@ -333,7 +350,7 @@ This command is used to send data to IoT PF through monoZ:Jet.
                     0
                     </div>
                     <div className="col col--8">
-                    Send Success
+                    Data Send Success
                     </div>
                 </div>
                 <div className="row">
@@ -341,7 +358,7 @@ This command is used to send data to IoT PF through monoZ:Jet.
                     1
                     </div>
                     <div className="col col--8">
-                    Send Fail
+                    Data Send Failed
                     </div>
                 </div>
                 <div className="row">
@@ -349,7 +366,7 @@ This command is used to send data to IoT PF through monoZ:Jet.
                     2
                     </div>
                     <div className="col col--8">
-                    Send Payload size exceeds
+                    Payload Size Exceeds limit
                     </div>
                 </div>
             </div>
@@ -398,11 +415,11 @@ This command is used to send data to IoT PF through monoZ:Jet.
 <table>
     <tr>
         <td>MZOK/MZFAIL</td>
-        <td>1 second</td>
+        <td>2 seconds</td>
     </tr>
     <tr>
-        <td>+MZSEND/+DEBUG</td>
-        <td>5 seconds</td>
+        <td>+MZSEND/+MZDEBUG</td>
+        <td>20 seconds</td>
     </tr>
 </table>
 
@@ -411,10 +428,30 @@ This command is used to send data to IoT PF through monoZ:Jet.
     <div className="card__body">
         <h5>Without Debug Mode</h5>
         <br/>
-        
+        Normal case
         ```jsx
         MZSEND=Payload123
         MZOK
+        +MZSEND: 0
+        ```
+        <br/>
+        Network/Platform Disruption while MZSEND: case 1
+        ```jsx
+        MZSEND=Payload123
+        MZOK  
+        +MZSEND: 1
+        +MZSTART: 3 or 4
+        +MZSTART: 0
+
+        ```
+        <br/>
+       Network/Platform Disruption while MZSEND: case 2
+        ```jsx
+        MZSEND=Payload123
+        MZOK
+        +MZSTART: 3 or 4
+        +MZSTART: 3 or 4
+        +MZSTART: 0
         +MZSEND: 0
         ```
         
@@ -434,8 +471,8 @@ This command is used to send data to IoT PF through monoZ:Jet.
     </div>
 </div>
 
-### DL Data Receive
-This command enable monoZ:Jet to receive data from IoT Platform. 
+### Downlink Data
+This command enables monoZ:Jet to open downlink session with IoT platfom. Once enabled, the session remains active until a power-off, hardware reset, or full sleep occurs. In the event of a network disconnection and reconnection, the module automatically re-enables itself without requiring host intervention.
 
 <CodeBlock language="javascript" title="Execution command">
 {`MZRECEIVE `}
@@ -472,7 +509,8 @@ This command enable monoZ:Jet to receive data from IoT Platform.
                     Accepted Characters
                     </div>
                     <div className="col col--6">
-                    Alphanumeric, Kanji, “#$%&’()//\<>.,?{}
+                    Alphanumeric, Kanji, “#$%&’()/\<>.,?{};+-!@
+                    <br/> There is a possibility certain kanji characters may not be accepted.
                     </div>
                 </div>
             </div>
@@ -492,7 +530,7 @@ This command enable monoZ:Jet to receive data from IoT Platform.
                     0
                     </div>
                     <div className="col col--10">
-                    Receive success
+                    Downlink enable success
                     </div>
                 </div>
                 <div className="row">
@@ -500,7 +538,7 @@ This command enable monoZ:Jet to receive data from IoT Platform.
                     1
                     </div>
                     <div className="col col--10">
-                    Receive failed
+                    Downlink enable failed
                     </div>
                 </div>
                 <div className="row">
@@ -508,7 +546,7 @@ This command enable monoZ:Jet to receive data from IoT Platform.
                     2
                     </div>
                     <div className="col col--10">
-                    Receive payload
+                    Downlink data received 
                     </div>
                 </div>
                 <div className="row">
@@ -516,7 +554,7 @@ This command enable monoZ:Jet to receive data from IoT Platform.
                     3
                     </div>
                     <div className="col col--10">
-                    Receive payload size exceed limit
+                    Downlink data error - payload size exceed limit
                     </div>
                 </div>
             </div>
@@ -534,11 +572,11 @@ This command enable monoZ:Jet to receive data from IoT Platform.
                 Integer Type.  
                 <div className="row">
                     <div className="col col--2">40</div>
-                    <div className="col col--10">IoT Platform Receive Subscribe Success</div>
+                    <div className="col col--10">IoT Platform subscription success</div>
                 </div>
                 <div className="row">
                     <div className="col col--2">41</div>
-                    <div className="col col--10">IoT Platform Receive Subscribe Failed </div>
+                    <div className="col col--10">IoT Platform subscription failed </div>
                 </div>
             </div>
         </div>
@@ -549,10 +587,10 @@ This command enable monoZ:Jet to receive data from IoT Platform.
 <table>
     <tr>
         <td>MZOK/MZFAIL</td>
-        <td>1 second</td>
+        <td>2 seconds</td>
     </tr>
     <tr>
-        <td>+MZRECEIVE/+DEBUG</td>
+        <td>+MZRECEIVE/+MZDEBUG</td>
         <td>5 seconds</td>
     </tr>
 </table>
@@ -585,8 +623,8 @@ This command enable monoZ:Jet to receive data from IoT Platform.
     </div>
 </div>
 
-### Sleep
-This command is used to put the module to different Low Power Modes(LPM).
+### Module Sleep
+This command puts the monoZ:Jet module to different Low Power Modes(LPM).
 
 <CodeBlock language="javascript" title="Execution command">
 {`MZSLEEP=<Key_val> `}
@@ -595,7 +633,7 @@ This command is used to put the module to different Low Power Modes(LPM).
 <CodeBlock language="javascript" title="Response"  className="responseJet">
 {`MZOK/MZFAIL
 +MZSLEEP: <sleep_sts> 
-+DEBUG: <dbg_sts>`}
++MZDEBUG: <dbg_sts>`}
 </CodeBlock>
 
 
@@ -614,7 +652,7 @@ This command is used to put the module to different Low Power Modes(LPM).
                     0
                     </div>
                     <div className="col col--10">
-                    Full sleep. Wake up triggered by raising HOST to BOARD_WKP(P407) Pin to HIGH. MCU will go to Full sleep mode after 5 sec of receiving +MZSLEEP: 0 URC and shall not take any MZ input via UART.
+                    Full sleep mode. monoZ:Jet will go to full deep sleep mode after 5 seconds of sending back +MZSLEEP: 0 URC to the host. monoZ:Jet cannot take MZ commands in this mode and wake up is triggered by raising HOST to BOARD_WKP(P407) Pin to HIGH or via power off/on.
                     </div>
                 </div>
                 <div className="row">
@@ -622,7 +660,7 @@ This command is used to put the module to different Low Power Modes(LPM).
                     1
                     </div>
                     <div className="col col--10">
-                    Network Disconnect (Module will be in ON state but Network will be disconnected).
+                    Semi sleep mode.monoZ:Jet shall be in ON state however it will be disconnected from the network similar to airplane mode. Wakeup is triggered using MZSTART.
                     </div>
                 </div>
                 <div className="row">
@@ -630,7 +668,7 @@ This command is used to put the module to different Low Power Modes(LPM).
                     2
                     </div>
                     <div className="col col--10">
-                    Platform Disconnect (Module will be in ON state, Network will be in connected state, module will be disconnected from IoT PF).
+                    Light Sleep mode. monoZ:Jet shall be in network connected state however the module shall be disconnected from the IoT platform. Wakeup is triggered using MZSTART.
                     </div>
                 </div>
             </div>
@@ -650,7 +688,7 @@ This command is used to put the module to different Low Power Modes(LPM).
                     0
                     </div>
                     <div className="col col--10">
-                    Sleep Success
+                    Sleep mode success
                     </div>
                 </div>
                 <div className="row">
@@ -658,7 +696,7 @@ This command is used to put the module to different Low Power Modes(LPM).
                     1
                     </div>
                     <div className="col col--10">
-                    Sleep Fail
+                    Sleep mode fail
                     </div>
                 </div>
             </div>
@@ -707,11 +745,11 @@ This command is used to put the module to different Low Power Modes(LPM).
 <table>
     <tr>
         <td>MZOK/MZFAIL</td>
-        <td>1 second</td>
+        <td>2 seconds</td>
     </tr>
     <tr>
-        <td>+MZSLEEP/+DEBUG</td>
-        <td>5 seconds</td>
+        <td>+MZSLEEP/+MZDEBUG</td>
+        <td>10 seconds</td>
     </tr>
 </table>
 
@@ -737,13 +775,18 @@ This command is used to put the module to different Low Power Modes(LPM).
             ```jsx
             MZSLEEP=1
             MZOK
-            +DEBUG: 50
+            +MZDEBUG: 16
             +MZSLEEP: 0
             ```
     </div>
 </div>
 
-### Time
+<b>Note:</b>
+1. monoZ:Jet stores the last connected network information during the full sleep process. To speed up network connection after the next power-on, it is recommended to execute MZSLEEP=0 before powering off the monoZ:Jet. 
+2. If MZRECEIVE was enabled on the monoZ:Jet before Semi sleep or Light sleep, then monoZ:Jet automatically enables the session after wakeup.
+3. In the case of Full Sleep, the user must reenable the downlink session upon wakeup.
+
+### Network Time
 This command is used to capture and return the real time clock.
 
 <CodeBlock language="javascript" title="Execution command">
@@ -792,20 +835,18 @@ This command is used to capture and return the real time clock.
 <table>
     <tr>
         <td>MZOK/MZFAIL</td>
-        <td>1 second</td>
+        <td>2 seconds</td>
     </tr>
     <tr>
         <td>+MZTIME</td>
-        <td>1 second</td>
+        <td>2 seconds</td>
     </tr>
 </table>
 
 #### Usage
 <div className="card">
     <div className="card__body">
-        <h5>Without Debug Mode</h5>
-        <br/>
-        
+              
         ```jsx
         MZTIME
        +MZTIME: 0,2024/06/17,16:11:23+36
@@ -814,9 +855,8 @@ This command is used to capture and return the real time clock.
     </div>
 </div>
 
-### NW Status
-This command is used to read current network status. \
-**MZNWSTATUS Capture Network Status**
+### Network Status
+This command is used to read the status of connected network. 
 
 <CodeBlock language="javascript" title="Execution command">
 {`MZSTATUS`}
@@ -824,7 +864,7 @@ This command is used to read current network status. \
 
 <CodeBlock language="javascript" title="Response"  className="responseJet">
 {`MZOK
-+MZNWSTATUS: <r_sts>,<sysmode>,<value1>,<value2>,<value3,<value4>
++MZNWSTATUS: <r_sts>,"<lac>","<ci>","<oper>","<band>",<rssi>,<rsrp>,<sinr>,<rsrq>
 +MZNWSTATUS: <r_sts>`}
 </CodeBlock>
 
@@ -849,216 +889,154 @@ This command is used to read current network status. \
         </div>
     </div>
 </div>
-<div className="card">
-    <div className="card__body">
-        <div className='row'> 
-            <div className='col col--4'> 
-                `<sysmode>`
-            </div>
-            <div className='col col--8'> 
-                String Type.
-                <div className="row">
-                    <div className="col col--4">
-                    "NOSERVICE"
-                    </div>
-                    <div className="col col--8">
-                    No Service Mode
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col col--4">
-                    "GSM"
-                    </div>
-                    <div className="col col--8">
-                    GSM/GPRS/EDGE mode
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col col--4">
-                    "eMTC"
-                    </div>
-                    <div className="col col--8">
-                    eMTC mode
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col col--4">
-                    "NBIoT"
-                    </div>
-                    <div className="col col--8">
-                    NB-IoT mode
-                    </div>
-                </div>
-                <br/>
-                <div className="row">
-                    <div className="col col--12">
-                    The following table lists the signal strength type corresponding to each service mode.
-                    </div>
-                </div>
-                <br/>
-                <table>
-                    <tr>
-                        <td><b>{`<sysmode>`}</b></td>
-                        <td><b>{`<value1>`}</b></td>
-                        <td><b>{`<value2>`}</b></td>
-                        <td><b>{`<value3>`}</b></td>
-                        <td><b>{`<value4>`}</b></td>
-                    </tr>
-                    <tr>
-                        <td>NO SERVICE</td>
-                        <td>{`-`}</td>
-                        <td>{`-`}</td>
-                        <td>{`-`}</td>
-                        <td>{`-`}</td>
-                    </tr>
-                    <tr>
-                        <td>GSM</td>
-                        <td>{`<GSM_RSSI>`}</td>
-                        <td>{`-`}</td>
-                        <td>{`-`}</td>
-                        <td>{`-`}</td>
-                    </tr>
-                    <tr>
-                        <td>eMTC</td>
-                        <td>{`<LTE_RSSI>`}</td>
-                        <td>{`<LTE_RSRP>`}</td>
-                        <td>{`<LTE_SINR>`}</td>
-                        <td>{`<LTE_RSRQ>`}</td>
-                    </tr>
-                    <tr>
-                        <td>NBIoT</td>
-                        <td>{`<LTE_RSSI>`}</td>
-                        <td>{`<LTE_RSRP>`}</td>
-                        <td>{`<LTE_SINR>`}</td>
-                        <td>{`<LTE_RSRQ>`}</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
+
 <div className="card">
     <div className="card__body">
         <div className="row">
             <div className="col col--4">
-                `<GSM_RSSI>`
+                `<lac>`
             </div>
             <div className="col col--8">
-                Integer Type.
-                <div className="row">
-                    <div className="col">
-                    Received signal strength indicator (dBm)
-                    </div>
+                 String type. 
+                 <br/>Two-byte location area code in hexadecimal format.
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div className="card">
-    <div className="card__body">
-        <div className="row">
-            <div className="col col--4">
-                `<LTE_RSSI>`
-            </div>
-            <div className="col col--8">
-                Integer Type.
-                <div className="row">
-                    <div className="col">
-                    Received signal strength indicator (dBm)
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div className="card">
-    <div className="card__body">
-        <div className="row">
-            <div className="col col--4">
-                `<LTE_RSRP>`
-            </div>
-            <div className="col col--8">
-                Integer Type.
-                <div className="row">
-                    <div className="col">
-                    Received signal strength indicator (dBm)
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div className="card">
-    <div className="card__body">
-        <div className="row">
-            <div className="col col--4">
-                `<LTE_SINR>`
-            </div>
-            <div className="col col--8">
-                Integer Type.
-                <div className="row">
-                    <div className="col">
-                    Signal-to-interference-plus-noise-ratio (SINR). Logarithmic value of SINR. Values are in 1/5th of a dB. Range: 0–250, which translates to -20 dB to +30 dB
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div className="card">
-    <div className="card__body">
-        <div className="row">
-            <div className="col col--4">
-                `<LTE_RSRQ>`
-            </div>
-            <div className="col col--8">
-                Integer Type.
-                <div className="row">
-                    <div className="col">
-                    Reference signal received quality (dBm)
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
 
+<div className="card">
+    <div className="card__body">
+        <div className="row">
+            <div className="col col--4">
+                `<ci>`
+            </div>
+            <div className="col col--8">
+                 String type. 
+                 <br/>Four-byte E-UTRAN cell ID in hexadecimal format.
+                 </div>
+        </div>
+    </div>
+</div>
+
+<div className="card">
+    <div className="card__body">
+        <div className="row">
+            <div className="col col--4">
+                `<oper>`
+            </div>
+            <div className="col col--8">
+                 String type. 
+                 <br/>Operator in numeric format.
+                 </div>
+        </div>
+    </div>
+</div>
+
+<div className="card">
+    <div className="card__body">
+        <div className="row">
+            <div className="col col--4">
+                `<band>`
+            </div>
+            <div className="col col--8">
+                 String type. 
+                 <br/>Selected band for network connection.
+                 </div>
+        </div>
+    </div>
+</div>
+
+<div className="card">
+    <div className="card__body">
+        <div className="row">
+            <div className="col col--4">
+                `<rssi>`
+            </div>
+            <div className="col col--8">
+                 Integer type. 
+                 <br/>LTE Received signal strength indicator.
+                 </div>
+        </div>
+    </div>
+</div>
+
+<div className="card">
+    <div className="card__body">
+        <div className="row">
+            <div className="col col--4">
+                `<rsrp>`
+            </div>
+            <div className="col col--8">
+                 Integer type. 
+                 <br/>Reference signal received power.
+                 </div>
+        </div>
+    </div>
+</div>
+<div className="card">
+    <div className="card__body">
+        <div className="row">
+            <div className="col col--4">
+                `<sinr>`
+            </div>
+            <div className="col col--8">
+                 Integer type. 
+                 <br/>Integer type. Signal-to-interference-plus-noise-ratio (SINR). Logarithmic value of
+SINR. Values are in 1/5th of a dB. Range: 0–250, which translates to -20dB to +30dB.
+                 </div>
+        </div>
+    </div>
+</div>
+<div className="card">
+    <div className="card__body">
+        <div className="row">
+            <div className="col col--4">
+                `<rsrq>`
+            </div>
+            <div className="col col--8">
+                 Integer type. 
+                 <br/>Reference signal received quality (RSRQ). Unit: dB.
+                 </div>
+        </div>
+    </div>
+</div>
+
+
 #### Maximum Response Time
 <table>
     <tr>
-        <td>MZOK</td>
-        <td>1 second</td>
+        <td>MZOK/MZFAIL</td>
+        <td>2 seconds</td>
     </tr>
     <tr>
         <td>+MZNWSTATUS</td>
-        <td>2 second</td>
+        <td>2 seconds</td>
     </tr>
 </table>
 
 #### Usage
 <div className="card">
     <div className="card__body">
-        <h5>Without Debug Mode</h5>
-        <br/>
+        
         
         ```jsx
         MZNWSTATUS
-       +MZNWSTATUS: 0,"eMTC",-66,-88,140,-8
+        MZOK
+       +MZNWSTATUS: 0,"1859","017CED06","44020","LTE BAND 8",-66,-94,75,-15
         ```
         
     </div>
 </div>
 
 ### Debug
-This command is used to enter and exit Debugging mode. If entered once it shall put monoZ:Jet in debug mode until exited.
+This command enables or disables debugging mode on monoZ:Jet. When enabled, the module generates additional URCs, indicated by +MZDEBUG, for the corresponding MZ commands.
 
 <CodeBlock language="javascript" title="Execution command">
 {`MZDEBUG=<key_val>`}
 </CodeBlock>
 
 <CodeBlock language="javascript" title="Response"  className="responseJet">
-{`MZOK/MZFAIL
-MZOK`}
+{`MZOK/MZFAIL`}
 </CodeBlock>
 
 
@@ -1077,7 +1055,7 @@ MZOK`}
                     0
                     </div>
                     <div className="col col--10">
-                    Enter Debugging Mode
+                    Exit Debugging Mode
                     </div>
                 </div>
                 <div className="row">
@@ -1085,7 +1063,7 @@ MZOK`}
                     1
                     </div>
                     <div className="col col--10">
-                    Exit Debugging Mode
+                    Enter Debugging Mode
                     </div>
                 </div>
             </div>
@@ -1099,18 +1077,13 @@ MZOK`}
         <td>MZOK/MZFAIL</td>
         <td>1 second</td>
     </tr>
-    <tr>
-        <td>OK/</td>
-        <td>1 second</td>
-    </tr>
+   
 </table>
 
 #### Usage
 <div className="card">
     <div className="card__body">
-        <h5>Without Debug Mode</h5>
-        <br/>
-        
+               
         ```jsx
         MZDEBUG=1
         MZOK
@@ -1120,7 +1093,7 @@ MZOK`}
 </div>
 
 ### Set Org ID
-This command is used to configure ORGID setting for connecting with monoZ:Link IoT PF. ORG ID can be set only before MZSTART.
+This command configures the Organization ID (ORGID) required for connecting to the monoZ:Link IoT platform. The ORGID is a one-time setting and does not need to be reconfigured after each power cycle. It can only be set before executing MZSTART.
 
 <CodeBlock language="javascript" title="Execution command">
 {`MZORGID="<org_id>"`}
@@ -1211,32 +1184,31 @@ This command is used to configure ORGID setting for connecting with monoZ:Link I
 <table>
     <tr>
         <td>MZOK/MZFAIL</td>
-        <td>1 second</td>
+        <td>2 seconds</td>
     </tr>
     <tr>
         <td>+MZORGID</td>
-        <td>5 second</td>
+        <td>5 seconds</td>
     </tr>
 </table>
 
 #### Usage
 <div className="card">
     <div className="card__body">
-        <h5>Without Debug Mode</h5>
-        <br/>
         
         ```jsx
         MZORGID="MTI-1"
+        MZOK
         +MZORGID: 0
         ```
     </div>
 </div>
 
 ### Set Band
-This command is used for configure BAND setting to connect with network. By default, all supported bands are enabled in ascending order of priority. 
+This command configures the BAND setting on monoZ:Jet for cellular network connectivity. By default, all supported bands are enabled, and during MZSTART, the module attempts to connect to the network in ascending order of the configured band priority. This setting must be applied before executing MZSTART.
 
 <CodeBlock language="javascript" title="Execution command">
-{`MZBAND="<GSM_bandval>","<eMTC_bandval>","<NB_IoT_bandval>"`}
+{`MZBAND=<GSM_bandval>,<eMTC_bandval>,<NB_IoT_bandval>`}
 </CodeBlock>
 
 <CodeBlock language="javascript" title="Response"  className="responseJet">
@@ -1681,24 +1653,417 @@ This command is used for configure BAND setting to connect with network. By defa
 <table>
     <tr>
         <td>MZOK/MZFAIL</td>
-        <td>1 second</td>
+        <td>2 seconds</td>
     </tr>
     <tr>
         <td>+MZBAND</td>
-        <td>5 second</td>
+        <td>5 seconds</td>
     </tr>
 </table>
 
 #### Usage
 <div className="card">
     <div className="card__body">
-        <h5>Without Debug Mode</h5>
-        <br/>
         
         ```jsx
         MZBAND=”0x0”,”0x2089b”,”0x80a”
         +MZBAND: 0
         ```
+    </div>
+</div>
+Note:
+1. The BAND setting is crucial for minimizing network connection time. Since the bands supported by the 1NCE network vary by country, we recommend configuring the appropriate band settings based on the device's target region of operation(see table). Contact us for tailored recommendations for your specific country or region.
+
+<table>
+    <tr>
+        <td>Japan</td>
+        <td>MZBAND=0x0,0x20081,0x0</td>
+    </tr>
+    <tr>
+        <td>Europe</td>
+        <td>MZBAND=0x0,0x80084,0x80084</td>
+    </tr>
+        <tr>
+        <td>US&Canada</td>
+        <td>MZBAND=0x0,0x81A,0x81A</td>
+    </tr>
+        <tr>
+        <td>All Bands (Default)</td>
+        <td>MZBAND=0xf,0x2000000000f0e189f,0x200000000090f189f</td>
+    </tr>
+</table>
+
+### FOTA - Send FOTA message
+This command allows the host to set a firmware update status message for the OTA server after successful monoZ:Jet initialization via MZSTART. It is typically used to report the latest host firmware version or the outcome of an OTA update. The MZSTARTMSG command can only be executed before MZSTART, and the configured message will be sent as the first payload to the FOTA topic upon connection to the IoT platform.
+
+
+<CodeBlock language="javascript" title="Execution command">
+{`MZSTARTMSG=<message>`}
+</CodeBlock>
+<CodeBlock language="javascript" title="FOTA update URC"  className="responseJet">
+{`MZOK/MZFAIL
+<upon_succesful_MZSTART>
++MZSTARTMSG: <send_sts>`}
+</CodeBlock>
+
+
+#### Defined Values
+<div className="card">
+    <div className="card__body">
+        <div className='row'> 
+            <div className='col col--4'> 
+                `<payload>`
+            </div>
+            <div className='col col--8'> 
+                String Type.
+                <div className="row">
+                    <div className="col col--6">
+                    Max byte size
+                    </div>
+                    <div className="col col--6">
+                    1024B
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col col--6">
+                    Accepted Characters
+                    </div>
+                    <div className="col col--6">
+                    Alphanumeric, Kanji, “#$%&’()/\<>.,?{};+-!@
+                    <br/> There is a possibility certain kanji characters may not be accepted.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div className="card">
+    <div className="card__body">
+        <div className="row">
+            <div className="col col--4">
+                `<send_sts>`
+            </div>
+            <div className="col col--8">
+                Integer Type.
+                <div className="row">
+                    <div className="col col--2">
+                    0
+                    </div>
+                    <div className="col col--10">
+                    FOTA message send success
+                    </div>
+                </div>
+               <div className="row">
+                    <div className="col col--2">
+                    1
+                    </div>
+                    <div className="col col--10">
+                    FOTA message send failed
+                    </div>
+                </div>
+                 <div className="row">
+                    <div className="col col--2">
+                    2
+                    </div>
+                    <div className="col col--10">
+                    FOTA message Length exceed
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col col--2">
+                    3
+                    </div>
+                    <div className="col col--10">
+                    FOTA message invalid format
+                    </div>
+                </div>                
+                 </div>
+                 </div>
+    </div>
+</div>
+
+#### Maximum Response Time
+<table>
+    <tr>
+        <td>MZOK/MZFAIL</td>
+        <td>2 seconds</td>
+    </tr>
+    <tr>
+        <td>+MZMZSTATMSG</td>
+        <td>5 seconds (from MZSTART:0)</td>
+    </tr>
+</table>
+
+#### Usage
+<div className="card">
+    <div className="card__body">
+        ```jsx
+        MZSTARTMSG=V.1.2 update complete
+        MZOK
+        MZSTART
+        +MZSTART:0
+        +MZREQFOTASEG: 0
+        ```
+         </div>
+</div>
+
+### FOTA - Update URC
+monoZ:Jet pass the FOTA update availability notification & FOTA payload to the host using this URC. New FOTA update notification message can be received anytime during an active MZSTART session. 
+
+<CodeBlock language="javascript" title="FOTA update URC"  className="responseJet">
+{`
++MZFOTARECEIVE: <receive_sts>,dt:<Epoch-Time>,host:<new-version-no>,hostsize:<size-in-Bytes>,hostseg:<total-segments>
++MZFOTARECEIVE: <receive_sts>,<segment-number>,<payload-format>,<Requested-segment>
++MZDEBUG: <dbg_sts>`}
+</CodeBlock>
+
+
+#### Defined Values
+
+<div className="card">
+    <div className="card__body">
+        <div className="row">
+            <div className="col col--4">
+                `<receive_sts>`
+            </div>
+            <div className="col col--8">
+                Integer Type.
+                <div className="row">
+                    <div className="col col--2">
+                    1
+                    </div>
+                    <div className="col col--10">
+                    New host firmware information received
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col col--2">
+                    2
+                    </div>
+                    <div className="col col--10">
+                    Requested firmware segment received
+                    </div>
+                </div>
+                                <div className="row">
+                    <div className="col col--2">
+                    3
+                    </div>
+                    <div className="col col--10">
+                    Received firmware segment size exceeds limits
+                    </div>
+                </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+<div className="card">
+    <div className="card__body">
+        <div className="row">
+            <div className="col col--4">
+                `<fota data>`
+            </div>
+            <div className="col col--8">
+                String Type. <br/>Max Byte size: 1200B <br/>Accepted Characters: Alphanumeric
+                <div className="row">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div className="card">
+    <div className="card__body">
+        <div className="row">
+            <div className="col col--4">
+                `<dbg_sts>`
+            </div>
+            <div className="col col--8">
+                Integer Type.
+                <div className="row">
+                    <div className="col col--2">
+                    40
+                    </div>
+                    <div className="col col--10">
+                    IoT platform subscription success
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col col--2">
+                    41
+                    </div>
+                    <div className="col col--10">
+                                        IoT platform subscription failed
+                    </div>
+                </div>
+                 </div>
+        </div>
+    </div>
+</div>
+
+#### Usage
+<div className="card">
+    <div className="card__body">
+         <h5>Without Debug Mode</h5>
+         New Firmware available
+        ```jsx
+        +MZFOTARECEIVE: 1,dt:1740104482,host:1.1.5,hostsize:hostappV1.0.2.zip - 223390,hostseg:219
+        ```
+
+        Requested Firmware segment
+        ```jsx
+        +MZFOTARECEIVE: 2,1,A,504b03041400000008001b84545aede14634b3b30100d0f603000b000000633361707056312e302e32cc5d097c94c5159f3d727018220408476113142d2a12ce445136893150149144a4b47577b359482424210997a85912af9aaa7c42c5965602d6ca465b690505b512c05a5ada0a7851b57593a805c2114842b25cdbff9b99dd9d5df643dbfefafb157f9bef7bff3733efcd9b376fce5dab736ebbd568309898fc6762af33039e3fcb15b455e289272849004b673df077381bc662419b83e92e7e761bc29ff10139325fba117fa23c87b0f0a74179c630fd7fd7e49802cf408ec05faeab653a70fe34873dbba562453d58583ea3ccd7761bf2f1a739ec694182d033543fb3fce473fce2e72d2cfc6996cf995f5615d2fbb96394f0e267092a1f7a86f2dd897cb1ec9bff4b94cf5924ef1276f1e2117a86dae1fa92e282eb4b0aaf2b292e5dbcec3a87a3c2593471fce8cab2d16942a724d9c6b933ee62a977bef14adbda6d6fbef7f29e25aee7660e7eeccca9c7cd5207834813f48938c53f34a5dd665a0a562539cc66c29ec6e719d261e9d5176e7bf5e96d49fbff3ae48da9739ff718fe79acf017b5b1150fdf36e4daccde2facefff9739512b1f94d18b25a747c307b1fa3c7318d60cbfe81ba50c439fe8f87934d7e551f091a6e8e97fa453cecb3af8953da2977f85397afa845ed1d377b0e8e9e7e994d3161b1ddfd0
+        ```
+    </div>
+</div>
+<div className="card">
+    <div className="card__body">
+            <h5>With Debug Mode</h5>
+            FOTA subscribe
+           ```jsx
+            +MZSTART: 0
+            +MZDEBUG: 40
+           ```
+    </div>
+</div>
+
+### FOTA - Request firmware segment
+This command is used to request the firmware segment from monoZ:Link.
+
+<CodeBlock language="javascript" title="Execution command">
+{`MZREQFOTASEG=<segment>`}
+</CodeBlock>
+<CodeBlock language="javascript" title="FOTA update URC"  className="responseJet">
+{`MZOK/MZFAIL
++MZREQFOTASEG: <send_sts> 
++MZDEBUG: <dbg_sts>`}
+</CodeBlock>
+
+
+#### Defined Values
+
+<div className="card">
+    <div className="card__body">
+        <div className="row">
+            <div className="col col--4">
+                `<segment>`
+            </div>
+            <div className="col col--8">
+                String Type. <br/>Max Byte size: 1B <br/>Accepted Characters: Numeric
+                <div className="row">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div className="card">
+    <div className="card__body">
+        <div className="row">
+            <div className="col col--4">
+                `<send_sts>`
+            </div>
+            <div className="col col--8">
+                Integer Type.
+                <div className="row">
+                    <div className="col col--2">
+                    0
+                    </div>
+                    <div className="col col--10">
+                    Request send success
+                    </div>
+                </div>
+               <div className="row">
+                    <div className="col col--2">
+                    1
+                    </div>
+                    <div className="col col--10">
+                    Request send failed
+                    </div>
+                </div>
+                 <div className="row">
+                    <div className="col col--2">
+                    2
+                    </div>
+                    <div className="col col--10">
+                    Invalid segment
+                    </div>
+                </div>                
+                 </div>
+                 </div>
+    </div>
+</div>
+
+<div className="card">
+    <div className="card__body">
+        <div className="row">
+            <div className="col col--4">
+                `<dbg_sts>`
+            </div>
+            <div className="col col--8">
+                Integer Type.
+                <div className="row">
+                    <div className="col col--2">
+                    30
+                    </div>
+                    <div className="col col--10">
+                    Data send success
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col col--2">
+                    31
+                    </div>
+                    <div className="col col--10">
+                    Data send retransmitting
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col col--2">
+                    32
+                    </div>
+                    <div className="col col--10">
+                    Data send failed
+                    </div>
+                </div>
+                 </div>
+        </div>
+    </div>
+</div>
+
+#### Maximum Response Time
+<table>
+    <tr>
+        <td>MZOK/MZFAIL</td>
+        <td>2 seconds</td>
+    </tr>
+    <tr>
+        <td>+MZREQFOTASEG/+MZDEBUG</td>
+        <td>20 seconds</td>
+    </tr>
+</table>
+
+#### Usage
+<div className="card">
+    <div className="card__body">
+         <h5>Without Debug Mode</h5>
+         ```jsx
+        MZREQFOTASEG=1
+        MZOK
+        +MZREQFOTASEG: 0
+        ```
+         </div>
+</div>
+<div className="card">
+    <div className="card__body">
+            <h5>With Debug Mode</h5>
+            ```jsx
+             MZREQFOTASEG=1
+             MZOK
+             +MZDEBUG: 30
+             +MZREQFOTASEG: 0
+           ```
     </div>
 </div>
 
@@ -1707,16 +2072,13 @@ monoZ:Jet has 2 special URCs namely MZFAIL and MZERROR as described below.
 
 <table>
     <tr>
-        <td colspan="2">MZFAIL SPECIAL MZFAIL</td>
+        <td>MZFAIL</td>
+        <td><ul><li>MZFAIL URC shall be returned for a MZ command if any prior MZ Command is in progress and its respective URC has not been sent back to host</li>
+        <li>MZFAIL shall be returned for MZ commands ***(MZTIME, MZNWSTATUS, MZSEND, MZRECEIVE)*** when executed before succesful ***MZSTART***.</li>
+        <li>MZFAIL shall be returned for MZ commands ***(MZBAND, MZORGID)*** when executed after succesful ***MZSTART***.</li></ul></td>
     </tr>
     <tr>
-        <td>Response URC <br/> MZFAIL</td>
-        <td><ul><li>MZFAIL URC shall be returned for each new MZ command If any prior MZ Command is in progress and respected success URC has not been received</li>
-        <li>Host commands **(MZTIME, MZNWSTATUS, MZSEND, MZRECEIVE) before MZSTART** will return **MZFAIL**.</li>
-        <li>Host Configuration Commands **(MZBAND, MZORGID) after MZSTART** will return **MZFAIL URC**</li></ul></td>
-    </tr>
-    <tr>
-        <td>Response URC <br/> MZFAIL</td>
-        <td><ul><li>**MZERROR** URC shall be returned for Invalid MZ command </li></ul></td>
+        <td>MZFAIL</td>
+        <td><ul><li>**MZERROR** URC shall be returned for any invalid MZ command </li></ul></td>
     </tr>
 </table>
