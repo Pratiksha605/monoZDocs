@@ -1,5 +1,5 @@
 ---
-title: Host communication commands
+title: Host Communication commands
 sidebar_position: 3
 ---
 import CodeBlock from '@theme/CodeBlock';  

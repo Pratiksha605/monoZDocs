@@ -113,7 +113,7 @@ The connector pin assignment is as follows. All I/O pins function at max 10mA an
 </div>
 
 ### Mechanical Specifications
-The mechanical dimensions of monoZ:Jet is provided in figure 6. A standard tolerance of +-0.05mm shall apply for all dimensions.
+The mechanical dimensions of monoZ:Jet is provided in figure 6. A standard tolerance of ±0.05mm shall apply for all dimensions.
 
 <div className="card">
 <div className="card__body">
