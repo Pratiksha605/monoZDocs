@@ -2,6 +2,8 @@
 title: Enable/Disable SIM
 sidebar_position: 2
 ---
+content commented. hide page
+<!-- 
 
 <div className="row">
     <div className="col col--7">
@@ -92,3 +94,5 @@ sidebar_position: 2
         </div>
     </div>
 </div>
+
+-->

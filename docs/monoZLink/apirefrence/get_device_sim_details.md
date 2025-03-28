@@ -3,6 +3,9 @@ title: Get Device & SIM Details
 sidebar_position: 1
 ---
 
+content commented. hide page
+<!-- 
+
 <div className="row">
     <div className="col col--7">
         <p className="Get-link"><span className="get">GET</span> <em>https://link.monoz.io/api/v1/{ORG-ID}/Device/Sim/Detail/{ICCID}</em></p>
@@ -140,3 +143,5 @@ sidebar_position: 1
         </div>
     </div>
 </div>
+
+ -->

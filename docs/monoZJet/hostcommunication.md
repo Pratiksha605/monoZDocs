@@ -105,6 +105,5 @@ Once hardware is prepared, monoZ:Jet can be accessed via UART by connecting p7,p
 </div>
 
 **Caution:**
-<br/>i)	Do not power up monoZ:Jet via USB and 5V cascade VBUS pin at the same time. This may cause monoZ:Jet to fail. The power source may also face overcurrent and potential damage.
-<br/>ii) When in USB mode, the cascade UART pins should remain disconnected from any data source. Transmitting data through the cascade UART while monoZ:Jet is in USB mode may result in signal corruption and potential hardware damage on monoZ:Jet.
-
+<br/>i)	Do not power up monoZ:Jet via USB and 5V cascade VBUS pin at the same time. This may cause monoZ:Jet to malfunction. The power source may also face overcurrent and potential damage.
+<br/>ii) When in USB mode, the cascade UART pins should remain disconnected from any data source. Transmitting data through the cascade UART while monoZ:Jet is in USB mode may result in signal corruption and monoZ:Jet malfunction.

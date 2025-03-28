@@ -19,16 +19,18 @@ sidebar_position: 7
                     <div className="col col--8">Unique ICCID of target device</div>
                 </div>
                 <div className="row mb-2">
-                    <div className="col col--4"><code>Topic</code></div>
-                    <div className="col col--8">Topic can be empty or multiple but must start with a slash (/). For example: /Name1/Name2/.. </div>
+                  <div className="col col--4"><code>Topic</code></div>
+                    <div className="col col--8">Topic can be empty or multiple but must start with a slash (/). For example: "/Name1/Name2/..".
+                    <br/>Max length is 512 bytes with including default topc "\/\< ORGID\>\/\<ICCID\>\/sub".</div>
                 </div>
                 <div className="row mb-2">
                     <div className="col col--4"><code>QoS</code></div>
                     <div className="col col--8">Quality of Service, can be 0 or 1.</div>
                 </div>
                 <div className="row mb-2">
-                    <div className="col col--4"><code>Message</code></div>
-                    <div className="col col--8">Downlink message</div>
+                <div className="col col--4"><code>Message</code></div>
+                    <div className="col col--8">Downlink message. Range is 1-4096 bytes.
+                    <br/>monoZJet max message length is 1024 bytes.</div>
                 </div>
                 <div className="row mb-2">
                     <div className="col col--4"><code>Format</code></div>
