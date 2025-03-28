@@ -2,6 +2,9 @@
 title: Get SIM Enable/Disable Status
 sidebar_position: 3
 ---
+content commented. hide page
+<!-- 
+
 <div className="row">
     <div className="col col--7">
         <p className="Get-link"><span className="get">GET</span> <em>https://link.monoz.io/api/v1/{Org-Id}/Sim/Enable/{ICCID}</em></p>
@@ -94,3 +97,5 @@ sidebar_position: 3
 </div>
 
 </div>
+
+-->
