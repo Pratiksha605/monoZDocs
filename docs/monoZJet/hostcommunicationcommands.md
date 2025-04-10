@@ -26,7 +26,7 @@ This URC is sent by monoZ:Jet to the host upon successful power-on. monoZ:Jet do
 1. If host and monoZ:Jet is powered ON at the same time, then there is a possibility the host may miss the +MZREADY message. 
 
 ### Module Start
-This command initializes the monoZ:Jet module and establish communication with the cellular network and the IoT platform using runtime parameters. If the SIM is not detected, the Band setting is incorrect, or the modem fails to start, an error URC is immediately generated without retries. In the event of a failed network or IoT platform connection, monoZ:Jet will return a failure URC and retry every 5 minutes indefinitely until a successful connection is established. The host can force an exit from this loop through a hardware reset, full sleep, or a power shutdown. Upon +MZSTART:0, host can expect +MZSTART URCs in the event of network or IoT platform disconnection.
+This command initializes the monoZ:Jet module and establish communication with the cellular network and the IoT platform using the configured BAND & ORG ID parameters. If the SIM is not detected(+MZSTART: 1), the Band setting is incorrect(+MZSTART: 2), or the modem fails to start(+MZSTART: 5), the respective error URCs(+MZSTART: 1/2/5) is immediately generated and monoZ:Jet shall not make any retry attempt. In the event of a failed network connection (+MZSTART: 3) or failed IoT platform connection (+MZSTART: 4), monoZ:Jet will return its respective failure URCs (+MZSTART: 3/4) and retry every few minutes (2min followed by 3min followed by every 5min) indefinitely until a successful connection (+MZSTART: 0) is established. The host can force an exit from this loop through a hardware reset, full sleep, or a power shutdown. Even after successful execution (+MZSTART: 0), host can +MZSTART URCs in the event of any error or failures.
 
 <CodeBlock language="javascript" title="Execution command">
 {`MZSTART `}
@@ -234,8 +234,8 @@ This command initializes the monoZ:Jet module and establish communication with t
 </div>
 
 <b> Note: </b>
-1. Reception of FOTA from IoT Platform data to monoZ:Jet  will be enabled upon +MZSTART:0
-2. MZBAND & MZORGID setting cannot be set after MZSTART:0 
+1. Reception of FOTA data from IoT Platform data to monoZ:Jet will be enabled upon +MZSTART:0
+2. MZBAND & MZORGID setting can be set only before executing MZSTART command
 
 
 ### Firmware Version
@@ -623,7 +623,7 @@ This command enables monoZ:Jet to open downlink session with IoT platfom. Once e
     </div>
 </div>
 
-### Module Sleep
+### Sleep Mode
 This command puts the monoZ:Jet module to different Low Power Modes(LPM).
 
 <CodeBlock language="javascript" title="Execution command">
@@ -653,6 +653,7 @@ This command puts the monoZ:Jet module to different Low Power Modes(LPM).
                     </div>
                     <div className="col col--10">
                     Full sleep mode. monoZ:Jet will go to full deep sleep mode within 5 seconds of sending back +MZSLEEP: 0 URC to the host. monoZ:Jet cannot take MZ commands in this mode and wake up is triggered by raising HOST to BOARD_WKP(P407) Pin to HIGH or via power off/on.
+                     <br/>Avg. Power consumption: ~20μA
                     </div>
                 </div>
                 <div className="row">
@@ -661,6 +662,7 @@ This command puts the monoZ:Jet module to different Low Power Modes(LPM).
                     </div>
                     <div className="col col--10">
                     Semi sleep mode.monoZ:Jet shall be in ON state however it will be disconnected from the network similar to airplane mode. Wakeup is triggered using MZSTART.
+                    <br/>Avg. Power consumption: ~25mA
                     </div>
                 </div>
                 <div className="row">
@@ -669,6 +671,7 @@ This command puts the monoZ:Jet module to different Low Power Modes(LPM).
                     </div>
                     <div className="col col--10">
                     Light Sleep mode. monoZ:Jet shall be in network connected state however the module shall be disconnected from the IoT platform. Wakeup is triggered using MZSTART.
+                    <br/>Avg. Power consumption: ~110mA
                     </div>
                 </div>
             </div>
@@ -787,7 +790,7 @@ This command puts the monoZ:Jet module to different Low Power Modes(LPM).
 3. In the case of Full Sleep, the user must reenable the downlink session upon wakeup.
 
 ### Network Time
-This command is used to capture and return the real time clock.
+This command is used to capture and return the system clock.
 
 <CodeBlock language="javascript" title="Execution command">
 {`MZTIME`}
@@ -1093,7 +1096,7 @@ This command enables or disables debugging mode on monoZ:Jet. When enabled, the 
 </div>
 
 ### Set Org ID
-This command configures the Organization ID (ORGID) required for connecting to the monoZ:Link IoT platform. The ORGID is a one-time setting and does not need to be reconfigured after each power-on cycle. This setting must be done before executing MZSTART.
+This command configures the Organization ID (ORGID) required for connecting to the monoZ:Link IoT platform. The ORGID configuration is stored in non-volatile memory of the device. This setting must be done before executing MZSTART.
 
 <CodeBlock language="javascript" title="Execution command">
 {`MZORGID="<org_id>"`}
@@ -1205,7 +1208,7 @@ This command configures the Organization ID (ORGID) required for connecting to t
 </div>
 
 ### Set Band
-This command configures the BAND setting on monoZ:Jet for cellular network connectivity. By default, all supported bands are enabled, and during MZSTART, the module attempts to connect to the network in ascending order of the configured band. This setting must be done before executing MZSTART.
+This command configures the BAND setting on monoZ:Jet for cellular network connectivity. By default, all supported bands are enabled, and during MZSTART, the module attempts to connect to the network in ascending order of the configured band. Band setting is stored in non-volatile memory of the device. This setting must be done before executing MZSTART.
 
 <CodeBlock language="javascript" title="Execution command">
 {`MZBAND=<GSM_bandval>,<eMTC_bandval>,<NB_IoT_bandval>`}
@@ -1671,8 +1674,8 @@ This command configures the BAND setting on monoZ:Jet for cellular network conne
         ```
     </div>
 </div>
-Note:
-1. The BAND setting is crucial for minimizing network connection time. Since the bands supported by the 1NCE network vary by country, we recommend configuring the appropriate band settings based on the device's target region of operation(see table). Contact us for tailored recommendations for your specific country or region.
+<b>Note:</b>
+1. The BAND setting plays a key role in reducing network connection time.  We recommend configuring the band settings according to the device’s target operating region (refer to the table). This shall limit the band search to supported bands/networks of the region. Please contact us for tailored recommendations specific to your country or region.
 
 <table>
     <tr>
@@ -1694,7 +1697,7 @@ Note:
 </table>
 
 ### FOTA - Send FOTA message
-This command allows the host to set a firmware update status message for the OTA server after successful monoZ:Jet initialization via MZSTART. It is typically used to report the latest host firmware version or the outcome of an OTA update. The MZSTARTMSG command can only be executed before MZSTART, and the configured message will be sent immediately to the FOTA server upon succesful platform connection.
+This command allows the host to set a firmware update status message for the OTA server after successful monoZ:Jet initialization via MZSTART. It is used to report the host firmware version or the outcome of an FOTA update. The MZSTARTMSG command can only be executed before MZSTART, and the configured message will be sent immediately to the FOTA server upon succesful platform connection.
 
 
 <CodeBlock language="javascript" title="Execution command">
@@ -1809,13 +1812,17 @@ This command allows the host to set a firmware update status message for the OTA
 </div>
 
 ### FOTA - Update URC
-monoZ:Jet pass the FOTA update availability notification & FOTA payload to the host using this URC. New FOTA update notification message can be received anytime during an active MZSTART session. 
+monoZ:Jet pass the FOTA update availability notification & requested FOTA segment payload to the host using this URC. New FOTA update notification message can be received anytime during an active MZSTART session. 
 
-<CodeBlock language="javascript" title="FOTA update URC"  className="responseJet">
+<CodeBlock language="javascript" title="FOTA update URC #1 - FOTA Notification"  className="responseJet">
 {`
-+MZFOTARECEIVE: <receive_sts>,dt:<Epoch-Time>,host:<new-version-no>,hostsize:<file-name - size-in-Bytes>,hostseg:<total-segments>
-+MZFOTARECEIVE: <receive_sts>,<segment-number>,<payload-format>,<requested-segment>
++MZFOTARECEIVE: <receive_sts>,dt:<Epoch-Time>,host:<new-version-no>,hostsize:<file-name - size-in-Bytes>,hostseg:<total-segments> 
 +MZDEBUG: <dbg_sts>`}
+</CodeBlock>
+<CodeBlock language="javascript" title="FOTA update URC #2 - Requested FOTA segment"  className="responseJet">
+{`
++MZFOTARECEIVE: <receive_sts>,<segment-number>,<payload-format>,<requested-segment>
+`}
 </CodeBlock>
 
 
@@ -1862,10 +1869,101 @@ monoZ:Jet pass the FOTA update availability notification & FOTA payload to the h
     <div className="card__body">
         <div className="row">
             <div className="col col--4">
-                `<fota data>`
+                `<Epoch-Time>`
             </div>
             <div className="col col--8">
-                String Type. <br/>Max Byte size: 1200B <br/>Accepted Characters: Alphanumeric
+                EPOCH Timestamp set by monoZ:Link while initiating the message. 
+                <div className="row">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div className="card">
+    <div className="card__body">
+        <div className="row">
+            <div className="col col--4">
+                `<new-version-no>`
+            </div>
+            <div className="col col--8">
+                FOTA version number as set by the user.
+                <div className="row">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div className="card">
+    <div className="card__body">
+        <div className="row">
+            <div className="col col--4">
+                `<file-name - size-in-Bytes>`
+            </div>
+            <div className="col col--8">
+                FOTA file name as provided by user & total file size in Bytes
+                <div className="row">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div className="card">
+    <div className="card__body">
+        <div className="row">
+            <div className="col col--4">
+                `<total-segments>`
+            </div>
+            <div className="col col--8">
+                Total no of segments in which FOTA file has been split.
+                <br/> Maximum size per segment = 1024B
+                <div className="row">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div className="card">
+    <div className="card__body">
+        <div className="row">
+            <div className="col col--4">
+                `<segment-number>`
+            </div>
+            <div className="col col--8">
+                Received segment number of the FOTA file
+                <div className="row">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div className="card">
+    <div className="card__body">
+        <div className="row">
+            <div className="col col--4">
+                `<payload-format>`
+            </div>
+            <div className="col col--8">
+                The format of contents in requested segment
+                <br/>A = ASCII
+                <br/>H = Hex
+                <div className="row">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div className="card">
+    <div className="card__body">
+        <div className="row">
+            <div className="col col--4">
+                `<requested-segment>`
+            </div>
+            <div className="col col--8">
+                The requested segment data of FOTA file
+                <br/> Maximum size per segment = 1024B
                 <div className="row">
                 </div>
             </div>
@@ -1894,7 +1992,7 @@ monoZ:Jet pass the FOTA update availability notification & FOTA payload to the h
                     41
                     </div>
                     <div className="col col--10">
-                                        IoT platform subscription failed
+                    IoT platform subscription failed
                     </div>
                 </div>
                  </div>
@@ -1906,12 +2004,12 @@ monoZ:Jet pass the FOTA update availability notification & FOTA payload to the h
 <div className="card">
     <div className="card__body">
          <h5>Without Debug Mode</h5>
-         New Firmware available
+         FOTA Notification
         ```jsx
         +MZFOTARECEIVE: 1,dt:1740104482,host:1.1.5,hostsize:hostappV1.0.2.zip - 223390,hostseg:219
         ```
 
-        Requested Firmware segment
+        Requested FOTA segment
         ```jsx
         +MZFOTARECEIVE: 2,1,A,504b03041400000008001b84545aede14634b3b30100d0f603000b000000633361707056312e302e32cc5d097c94c5159f3d727018220408476113142d2a12ce445136893150149144a4b47577b359482424210997a85912af9aaa7c42c5965602d6ca465b690505b512c05a5ada0a7851b57593a805c2114842b25cdbff9b99dd9d5df643dbfefafb157f9bef7bff3733efcd9b376fce5dab736ebbd568309898fc6762af33039e3fcb15b455e289272849004b673df077381bc662419b83e92e7e761bc29ff10139325fba117fa23c87b0f0a74179c630fd7fd7e49802cf408ec05faeab653a70fe34873dbba562453d58583ea3ccd7761bf2f1a739ec694182d033543fb3fce473fce2e72d2cfc6996cf995f5615d2fbb96394f0e267092a1f7a86f2dd897cb1ec9bff4b94cf5924ef1276f1e2117a86dae1fa92e282eb4b0aaf2b292e5dbcec3a87a3c2593471fce8cab2d16942a724d9c6b933ee62a977bef14adbda6d6fbef7f29e25aee7660e7eeccca9c7cd5207834813f48938c53f34a5dd665a0a562539cc66c29ec6e719d261e9d5176e7bf5e96d49fbff3ae48da9739ff718fe79acf017b5b1150fdf36e4daccde2facefff9739512b1f94d18b25a747c307b1fa3c7318d60cbfe81ba50c439fe8f87934d7e551f091a6e8e97fa453cecb3af8953da2977f85397afa845ed1d377b0e8e9e7e994d3161b1ddfd0
         ```
@@ -2067,7 +2165,7 @@ This command is used to request the firmware segment from monoZ:Link.
     </div>
 </div>
 
-### Special URC
+### ERROR URC
 monoZ:Jet has 2 special URCs namely MZFAIL and MZERROR as described below.
 
 <table>
@@ -2078,7 +2176,7 @@ monoZ:Jet has 2 special URCs namely MZFAIL and MZERROR as described below.
         <li>MZFAIL shall be returned for MZ commands ***(MZBAND, MZORGID)*** when executed after succesful ***MZSTART***.</li></ul></td>
     </tr>
     <tr>
-        <td>MZFAIL</td>
+        <td>MZERROR</td>
         <td><ul><li>**MZERROR** URC shall be returned for any invalid MZ command </li></ul></td>
     </tr>
 </table>
