@@ -1,19 +1,19 @@
 ---
 title: Get Raw Data
-sidebar_position: 5
+sidebar_position: 7
 ---
-<div className="row">
-    <div className="col col--7">
+<!-- <div className="row">
+    <div className="col col--7"> -->
         <p className="Get-link"><span className="get">POST</span> <em>https://link.monoz.io/api/v1/{Org-Id}/RawData</em></p>
         <p style={{ textAlign: 'justify' }}>This API is available only for users with the database feature enabled. It allows retrieval of raw device data stored by monoZ:Link NoSQL database for 1 to 3 days, based on the selected plan. Data is be fetched using start and end timestamp. We recommend using this API once every 4 hours to once per day, depending on incoming data frequency.</p> 
 
         ##### Args
         <div className="card">
             <div className="card__body">
-                <div className="row mb-2">
+<!--                 <div className="row mb-2">
                     <div className="col col--4"><code>ORG-ID</code></div>
                     <div className="col col--8">The unique ID assigned to your organisation</div>
-                </div>
+                </div> -->
                 <div className="row mb-2">
                     <div className="col col--4"><code>StartTime</code></div>
                     <div className="col col--8">Starting time in ISO:8601 format</div>
@@ -24,7 +24,7 @@ sidebar_position: 5
                 </div>
             </div>
         </div>
-        <br/>
+    
         ##### Response
         <details>
             <summary>
@@ -91,9 +91,10 @@ sidebar_position: 5
                 </summary>
             </div>
         </div>
-    </div>
-    <div className="col col--5">
-        <div className="sticky">
+<!-- </div>
+    <div className="col col--5"> -->
+    
+    <br/><div className="sticky">
             ##### cURL
             ```jsx
                 curl --location 'https://link.monoz.io/api/v1/mti/RawData' \
@@ -127,5 +128,5 @@ sidebar_position: 5
             }
             ```
         </div>
-    </div>
-</div>
+<!-- </div>
+</div> -->

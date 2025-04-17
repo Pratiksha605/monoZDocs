@@ -1,19 +1,19 @@
 ---
 title: Get Failed Data
-sidebar_position: 6
+sidebar_position: 8
 ---
-<div className="row">
-    <div className="col col--7">
+<!-- <div className="row">
+    <div className="col col--7"> -->
         <p className="Get-link"><span className="get">POST</span> <em>https://link.monoz.io/api/v1/{Org-Id}/FailedData</em></p>
         This API is available only for users with the database feature enabled. It allows retrieval of data whose data push from monoZ:Link to user server was failed. Failed data is stored by monoZ:Link NoSQL database for 1 to 3 days, based on the selected plan. Data is fetched using start and end timestamp. We recommend using this API once every 4 hours to once per day, depending on incoming data frequency.
 
         ##### Args
         <div className="card">
             <div className="card__body">
-                <div className="row mb-2">
+<!--                 <div className="row mb-2">
                     <div className="col col--4"><code>ORG-ID</code></div>
                     <div className="col col--8">The unique ID assigned to your organisation</div>
-                </div>
+                </div> -->
                 <div className="row mb-2">
                     <div className="col col--4"><code>StartTime</code></div>
                     <div className="col col--8">Starting time in ISO:8601 format</div>
@@ -24,8 +24,7 @@ sidebar_position: 6
                 </div>
             </div>
         </div>
-        <br/>
-        ##### Response
+               ##### Response
         <details>
             <summary>
                 <div> <div class="error_200 HTTPStatus "><span class="HTTPStatus-chit"></span></div>200</div>
@@ -91,9 +90,9 @@ sidebar_position: 6
                 </summary>
             </div>
         </div>
-    </div>
-    <div className="col col--5">
-        <div className="sticky">
+<!-- </div>
+    <div className="col col--5"> -->
+     <br/>   <div className="sticky">
             ##### cURL
             ```jsx
                 curl --location 'https://link.monoz.io/api/v1/mti/FailedData' \
@@ -121,5 +120,5 @@ sidebar_position: 6
             }
             ```
         </div>
-    </div>
-</div>
+<!-- </div>
+</div> -->

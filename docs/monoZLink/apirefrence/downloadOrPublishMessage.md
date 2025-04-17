@@ -1,40 +1,44 @@
 ---
 title: Send Downlink Message
-sidebar_position: 7
+sidebar_position: 9
 ---
-<div className="row">
-    <div className="col col--7">
+<!-- <div className="row">
+    <div className="col col--7"> -->
         <p className="Get-link"><span className="get">POST</span> <em>https://link.monoz.io/api/v1/{Org-Id}/Publish/Message</em></p>
         This API can be used to send a downlink message to the connected device. The default topic for downlink message shall be published to /< ORGID>/< ICCID>/sub
 
         ##### Args
         <div className="card">
             <div className="card__body">
-                <div className="row mb-2">
+ <!--                <div className="row mb-2">
                     <div className="col col--4"><code>ORG-ID</code></div>
                     <div className="col col--8">The unique ID assigned to your organisation</div>
-                </div>
+                </div> -->
                 <div className="row mb-2">
                     <div className="col col--4"><code>ICCID</code></div>
                     <div className="col col--8">Unique ICCID of target device</div>
                 </div>
                 <div className="row mb-2">
                   <div className="col col--4"><code>Topic</code></div>
-                    <div className="col col--8">Topic can be empty or multiple but must start with a slash (/). For example: "/Name1/Name2/..".
+                    <div className="col col--8">MQTT Topic can be empty or multiple but must start with a slash (/). For example: "/Name1/Name2/..".
                     <br/>Max length is 512 bytes with including default topc "\/\< ORGID\>\/\<ICCID\>\/sub".</div>
                 </div>
                 <div className="row mb-2">
                     <div className="col col--4"><code>QoS</code></div>
-                    <div className="col col--8">Quality of Service, can be 0 or 1.</div>
+                    <div className="col col--8">MQTT QoS can be 0 or 1.</div>
                 </div>
                 <div className="row mb-2">
                 <div className="col col--4"><code>Message</code></div>
                     <div className="col col--8">Downlink message. Range is 1-4096 bytes.
-                    <br/>monoZJet max message length is 1024 bytes.</div>
+                    <br/>monoZ:Jet max message length is 1024 bytes.</div>
                 </div>
                 <div className="row mb-2">
                     <div className="col col--4"><code>Format</code></div>
-                    <div className="col col--8"> 0 (JSON) or 1 (TEXT).</div>
+                    <div className="col col--8">Desgnate downlink message format.
+                    <br/>0:JSON
+                    <br/>If message is JSON format, any CRLF or CR included in messsage shall be removed by monoZ:Link before pushing to the device. 
+                    <br/>1:TEXT
+                    <br/>Sends message without any formatting.</div>
                 </div>
             </div>
         </div>
@@ -93,8 +97,8 @@ sidebar_position: 7
                 </summary>
             </div>
         </div>
-    </div>
-    <div className="col col--5">
+<!-- </div>
+    <div className="col col--5"> -->
         <div className="sticky">
             ##### cURL
             ```jsx
@@ -118,5 +122,5 @@ sidebar_position: 7
             }
             ```
         </div>
-    </div>
-</div>
+<!-- </div>
+</div> -->

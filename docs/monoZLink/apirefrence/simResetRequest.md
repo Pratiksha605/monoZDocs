@@ -2,25 +2,25 @@
 title: SIM Reset Request
 sidebar_position: 4
 ---
-<div className="row">
-    <div className="col col--7">
+<!-- <div className="row">
+    <div className="col col--7"> -->
         <p className="Get-link"><span className="get">PUT</span> <em>https://link.monoz.io/api/v1/{OrganizationId}/Sim/Reset</em></p>
         Initiates the process of SIM connectivity reset and returns ok if the process was successfully started.
 
         ##### Args
         <div className="card">
             <div className="card__body">
-                <div className="row mb-2">
+<!--                 <div className="row mb-2">
                     <div className="col col--4"><code>ORG-ID</code></div>
                     <div className="col col--8">The unique ID assigned to your organisation</div>
-                </div>
+                </div> -->
                 <div className="row mb-2">
                     <div className="col col--4"><code>ICCID</code></div>
                     <div className="col col--8">Unique ICCID of target device</div>
                 </div>
             </div>
         </div>
-        <br/>
+ 
         ##### Response
         <details>
             <summary>
@@ -67,14 +67,14 @@ sidebar_position: 4
                 </summary>
             </div>
         </div>
-    </div>
-    <div className="col col--5">
-        <div className="sticky">
+<!-- </div>
+    <div className="col col--5"> -->
+      <br/>  <div className="sticky">
             ##### cURL
             ```jsx
                 curl --location --request PUT 'https://link.monoz.io/api/v1/mti/Sim/Reset' \
                 --header 'Content-Type: application/json' \
-                --header 'X-API-Key: abcdefgh123456' \
+                --header 'X-API-Key: exampleapikeyabcdefgh123456' \
                 --data '{
                     "ICCID": "1234567890"
                 }'
@@ -88,5 +88,5 @@ sidebar_position: 4
             }
             ```
         </div>
-    </div>
-</div>
+<!-- </div>
+</div> -->

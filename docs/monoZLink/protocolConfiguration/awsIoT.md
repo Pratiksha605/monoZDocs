@@ -2,7 +2,7 @@
 title: AWS IoT Core
 sidebar_position: 3
 ---
-In this guide we will walkthrough setting up AWS IoT core configuration in monoZ:Link. As part of this guide, we will setup a “thing” in AWS IoT core to receive data from monoZ:Link. We will configure AWS IoT core configuration in monoZ:Link and attach it to device group. 
+In this guide we will walkthrough setting up a “thing” in AWS IoT core to receive data from monoZ:Link. We will configure AWS IoT core configuration in monoZ:Link and attach it to device group. 
 <img src={require('@site/static/img/monoZ-Link-AWS-Iot.png').default} />
 
 
@@ -146,32 +146,25 @@ In this guide we will walkthrough setting up AWS IoT core configuration in monoZ
  
 
 #### Send data from the device
-1. Send payload data from the Device “XXXXXXXXXXXXXXX5169” to monoZ:Link. monoZ:Link shall translate protocol and push the received data to AWS IoT Core over MQTTS. It can be verified in AWS IoT console using MQTT test client feature.
-    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step19.png').default} /><br /><br />
- 
+1. Before data send, lets setup test client on AWS IoT core to view the incoming data. Navigate to MQTT test client in AWS IoT core console and subscribe to your device push topic. 
+<img src={require('@site/static/img/monoZ-Link-AWS-Iot-step19.png').default} /><br /><br />
 
-#### AWS IoT Core Data format
-monoZ:Link pushes data to the specified AWS IoT Core broker in the following format. By default each incoming message is pushed as individual outgoing message however when monoZ:Link recieve multiple messages within 1 second from devices belonging to same monoZ:Link, then based on the processing load, monoZ:Link may club upto 10 messages in a single outgoing message packet. In case of QOS 1 setting, monoZ:Link client ensure message is delivered at least once to the receiver. In case of not able to deliver the message to the server, the data will be discarded. If the database function is enabled, the data will be stored as failed data.<br/>
-    **Example 1:** Single packet in outgoing message
-    ```jsx
-    { 
-        "ICCID": 897612653856781234,
-        "Timestamp": "2023-10-16T09:17:32.1233516Z", 
-        "Payload": "ABC"
-    }
-    ```
-    **Example 2:** When multiple packets clubbed in single outgoing messages 
-    ```jsx
-        [
-            { 
-                "ICCID": 897612653856781234,
-                "Timestamp": "2023-10-16T09:17:32.1233516Z", 
-                "Payload": "ABC"
-            },
-            { 
-                "ICCID": 897612653856787890,
-                "Timestamp": "2023-10-16T09:17:32.8383516Z", 
-                "Payload": "123"
-            }
-        ]
-    ```
+2. Send payload data from the Device “XXXXXXXXXXXXXXX5169” to monoZ:Link. monoZ:Link shall translate protocol and push the received data to AWS IoT Core over MQTTS. It can be verified in the MQTT test client feature.
+     
+#### AWS IoT Core Data Push Format
+monoZ:Link pushes incoming data to the specified AWS IoT Core broker without any changes to format.
+
+
+Incoming data from Device to monoZ:Link :
+ ```jsx
+<payload>
+```
+monoZ:Link to AWS IoT core:
+ ```jsx
+<payload>
+```
+
+#### AWS IoT Core Data Push Rule:
+1. Each incoming data packet is pushed as individual data push message. 
+2. If AWS IoT core protocol configuration is set with QOS 1, then monoZ:Link shall ensure that the data push message is delivered at least once to AWS IoT Core. In case of not able to deliver the message to AWS IoT Core, the data will be discarded without retries. If the database function is enabled, the data will be stored as failed data.<br/>
+

@@ -1,6 +1,6 @@
 ---
-title: Get Device & SIM Details
-sidebar_position: 1
+title: Get Device & SIM Details - hide
+sidebar_position: 3
 ---
 
 content commented. hide page

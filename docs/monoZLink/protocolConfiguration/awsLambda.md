@@ -1,5 +1,5 @@
 ---
-title: AWS Lambda function
+title: AWS Lambda function - hide
 sidebar_position: 2
 ---
 

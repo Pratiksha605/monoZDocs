@@ -1,5 +1,5 @@
 ---
-title: AWS Kinesis connector 
+title: AWS Kinesis connector - hide
 sidebar_position: 4
 ---
 AWS S3 is a scalable storage service, and AWS Kinesis with Data Firehose is used for delivering real-time streaming data to destinations such as S3. In this guide, we`ll walkthrough setting up AWS Kinesis and data firehose service to receive data from monoZ:Link and push the data to S3 bucket.

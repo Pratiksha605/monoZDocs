@@ -1,6 +1,6 @@
 ---
-title: Get SIM Enable/Disable Status
-sidebar_position: 3
+title: Get SIM Enable/Disable Status - hide
+sidebar_position: 5
 ---
 content commented. hide page
 <!-- 

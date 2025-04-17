@@ -51,7 +51,7 @@ Any call to the published APIs must be securely authenticated. During re.g.,istr
 The API Key is provided by Meritech to the account manager when the account is created. Please contact Meritech Support if you do not have the API Key.
 This is standard API Key implementation and the header needs to be X-API-Key. Hence if the Key given to your organization is: abcdefg123456 then one needs to pass the following in the API header:
 
---header 'X-API-Key: abcdefgh123456' -->
+--header 'X-API-Key: exampleapikeyabcdefgh123456' -->
 
 ### REST API Description
 
@@ -70,32 +70,55 @@ The following are the REST APIs and their usages. In the below API description w
         <td>Organization ID: </td>
         <td>mti</td>
     </tr>
+    <tr>
+        <td>ICCID: </td>
+        <td>1234567890</td>
+    </tr>
 </table>
 
 We will use a sample ICCID and dummy API Key for authentication as mentioned in section 3.1.
 
-##### ICCID: 1234567890
-
-##### API Key:
-
 <table>
     <tr>
-        <td>Key: </td>
-        <td>X-API-Key</td>
+        <td><b>Header Name</b> </td>
+        <td><b>Header Value</b></td>
     </tr>
     <tr>
-        <td>Value: </td>
-        <td>abcdefgh123456</td>
+        <td>Content-Type </td>
+        <td>application/json </td>
+    </tr>
+    <tr>
+        <td>X-API-Key </td>
+        <td>exampleapikeyabcdefgh123456</td>
+    </tr>
+        <tr>
+        <td>Authorization </td>
+        <td>Bearer exampleauthabcdefgh123456</td>
     </tr>
 </table>
+
 
 We will use cURL Command to show sample usage and we will show some sample data in API call return and explain the return data as well as any arguments to the API call.
 Every API returns a JSON object as the response. The JSON object returned with each API is described in the sections below. Every JSON object contains a standard response format consisting of:
 
-<ul>
-<li>Error: Has a value of True/False denoting whether there was any error in processing the request.</li>
-<li>Message: A message describing what was the error if any.</li>
-<li>StatusCode: The standard HTTP Response Status Code.</li>
-<li>Data: The optional node where a data structure specific to the API is added.</li>
-</ul>	
+<table>
+<tr>
+<td>Error:</td>
+<td>Apart from any HTTP status code errors, this indicates whether there was an error while performing the requested operation.
+    <br/>The value is expressed as a Boolean, where True indicates there is an error and False indicates there is no error.</td>
+</tr>
+<tr>
+<td>Message:</td>
+<td>This will show the cause of the HTTP status error or process error. If there is no error, it will show FetchSuccess.</td>
+</tr>
+<tr>
+<td>StatusCode:</td>
+<td>This is a standard HTTP status code.</td>
+</tr>
+<tr>
+<td>Data:</td>
+<td>This contains the data requested in the API request. Each API has a different data structure, so please check each API section for details.</td>
+</tr>
+</table>
+
 Every record is associated with an Organization hence each API call needs the Organization ID to be provided. The.g.,ET APIs take the Organization ID in URL Path while the PUT/POST APIs take them as part of request body.

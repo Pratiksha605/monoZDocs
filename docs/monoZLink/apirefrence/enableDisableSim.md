@@ -1,5 +1,5 @@
 ---
-title: Enable/Disable SIM
+title: Enable/Disable SIM - hide
 sidebar_position: 2
 ---
 content commented. hide page
@@ -77,7 +77,7 @@ content commented. hide page
             ```jsx
                 curl --location --request PUT 'https://link.monoz.io/api/v1/mti/Sim/Enable' \
                 --header 'Content-Type: application/json' \
-                --header 'X-API-Key: abcdefgh123456' \
+                --header 'X-API-Key: exampleapikeyabcdefgh123456' \
                 --data '{
                     "ICCID": "1234567890",
                     "Enable": true

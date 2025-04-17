@@ -2,8 +2,9 @@
 title: Webhook
 sidebar_position: 1
 ---
+In this guide we will walkthrough setting up Webhook configuration in monoZ:Link. We assume you have already have an external HTTP/HTTPS endpoint ready to receive data from monoZ:Link.
 
-In this guide we assume you have already have an external service ready to receive data from monoZ:Link.
+#### Webhook Configuration Setup:
 
 1. Navigate to “Configuration” and click on “Add Configuration” from the top right corner. 
 
@@ -30,11 +31,8 @@ In this guide we assume you have already have an external service ready to recei
 
   <img src={require('@site/static/img/monoZ-Link-Protocol-Configuration.png').default} className="img-center" />
 
-#### Webhook Data Format
-
-monoz:Link pushes data to the specified server in the following format.When multiple packets arrive per second, data output will be output in 10 packets for each registered group. Upon data push to the specified server, the server will wait for a response for up to 90 seconds. In case of no response from server, monoZ:Link will retry the data push immediately and if the retry is unsuccessful, the data will be discarded without further attempts. If the database function is enabled, the data will be stored as failed data. 
-
-##### Format:
+#### Webhook Data Push Format:
+monoz:Link pushes data to the specified server in the following format.
 <table>
    <tr>
       <td><b>Field</b></td>
@@ -90,7 +88,12 @@ monoz:Link pushes data to the specified server in the following format.When mult
    </tr>
 </table>
 
-##### Example 1:
+#### Webhook Data Push Rule:
+1. When only a single data packet is received within one second from all devices associated with a monoZ:Link group, the platform sends one data push message containing that single data packet (See Example 1). When multiple data packets are received within one second from the devices in a monoZ:Link group, the platform sends multiple data push messages, each containing up to 10 data packets per message (See Example 2).
+2. Upon data push to the user server, monoZ:Link will wait for a response for up to 90 seconds. In case of no ACK response from user server,  monoZ:Link retry another 2 times before discarding the data push message.
+3. If monoZ:Link receive error response from user server, it will not retry and shall immediately discard the data push message. 
+
+##### Example 1: When single packet is received in 1 second:
 <table>
    <tr>
       <td><b>Field</b></td>
@@ -131,7 +134,7 @@ monoz:Link pushes data to the specified server in the following format.When mult
    
 </table>
 
-##### Example 2: When multiple packets are receiverd in 1 second:
+##### Example 2: When multiple packets are received in 1 second:
 <table>
    <tr>
       <td><b>Field</b></td>
