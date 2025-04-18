@@ -177,10 +177,10 @@ monoZ:Link use MQTT protocol to recieve data from its registered device. Details
 </table>
 
 2. Level1, level4 are optional levels that can be defined by the user.
-3. Max length of topic including ORGID & ICCID is XXX.
+3. Max length of topic including ORGID & ICCID is 512 bytes.
 3. QOS support: 0 or 1.
 4. Payload message format: raw text or JSON.
-5. Max size of single message: YYY
+5. Max size of single message: 6KB.
 6. Recommended interval between two payloads by the same device is 1 minute.
 
 <b> Note: </b>
@@ -231,7 +231,7 @@ Payload data can be sent from monoZ:Link to any registered device over MQTT prot
 </table>
 
 2. Level4 is an optional levels that can be defined by the user.
-3. Max length of topic including ORGID & ICCID is XXX.
+3. Max length of topic including ORGID & ICCID is 512 bytes.
 4. QOS support: 0 or 1 as per user setting.
 5. Payload message format: raw text or JSON.
 6. Max size of single message: 4096 bytes.
