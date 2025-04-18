@@ -1,9 +1,11 @@
 ---
-title: POC Kit
+title: POC Kit - old remove
 sidebar_position: 1
----
 
-Welcome to the Quickstart Guide for setting up your monoZ POC kit. In this guide we shall cover from POC kit unboxing and demonstrate how to send your first message from your device to monoZ:Link using monoZ:Jet and vice versa. This is a quickstart guide and for detailed description & limitations of individual features/commands, check out the respective sections in monoZ docs site.
+---
+remove
+
+<!-- Welcome to the Quickstart Guide for setting up your monoZ POC kit. In this guide we shall cover from POC kit unboxing and demonstrate how to send your first message from your device to monoZ:Link using monoZ:Jet and vice versa. This is a quickstart guide and for detailed description & limitations of individual features/commands, check out the respective sections in monoZ docs site.
 
 ### Prerequisites
 Before we get started, let’s prepare the essentials. 
@@ -77,3 +79,4 @@ ii)	When in USB mode, the cascade UART pins shouldn’t be connected to any data
     <img className="img-center" src={require('@site/static/img/quickguide18.png').default} />
  
 12.	Congrats! With this, you have learnt the basics of enabling connectivity with monoZ:Jet and monoZ:Link. Now go transform your physical products to connected solutions. In case you have any specific questions, create a support request by emailing us at customer-care@meritech.odoo.com
+-->
