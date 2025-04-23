@@ -25,6 +25,7 @@ If your organisation already holds a monoZ:Link account, contact your organisati
 
    <img src={require('@site/static/img/monoZ-Link-feature-walk-through.png').default} className="img-center" />
    <img src={require('@site/static/img/monoZ-Link-Account.png').default} className="img-center" />
+   <img src={require('@site/static/img/emailActivate.png').default} className="img-center" />
 
 ### Create Order
 
@@ -247,7 +248,8 @@ Follow steps below to send a downlink message from monoZ:Link to the device,
 
 4. When "Retain last message" is checked, the message to stored to the broker topic and device shall receive it upon successful subscribe.
 
-<img src={require('@site/static/img/monoZ-Link-DownLink-Message.jpg').default} className="img-center" />
+<!-- <img src={require('@site/static/img/monoZ-Link-DownLink-Message.jpg').default} className="img-center" />  -->
+<img src={require('@site/static/img/monoZ-Link-DownLinkBtn.png').default} className="img-center" /> 
 
 <b> Note: </b>
 1. Line breaks are not supported in the message box, including linebreaks in JSON format.
