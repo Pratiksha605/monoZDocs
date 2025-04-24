@@ -74,9 +74,13 @@ pre[class*="language-"] {
 }
 
 .token.tag,
-.token.operator,
-.token.number {
+.token.operator
+ {
 	color: #dd672c;
+}
+
+.token.number {
+	color: #fff !important;
 }
 
 .token.property,
