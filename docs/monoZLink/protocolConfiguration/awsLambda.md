@@ -15,7 +15,7 @@ In this guide we'll walkthrough setting up AWS Lambda function to receive data f
 1. First step is to create a SNS topic. In the AWS Management Console, go to SNS (Simple Notification Service) and click "Create Topic."
  <div className="card">
     <div className="card__body">
-    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step1.png').default} /><br/><br/>
+    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step1.png').default} />
     </div>
     </div>
 
@@ -23,28 +23,28 @@ In this guide we'll walkthrough setting up AWS Lambda function to receive data f
 Click "Create Topic."
  <div className="card">
     <div className="card__body">
-    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step2.png').default} /><br/><br/>
+    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step2.png').default} />
 </div>
 </div>
 
 3. After creating the topic, click "Create subscription”.  
  <div className="card">
     <div className="card__body">
-    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step3.png').default} /><br/><br/>
+    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step3.png').default} />
 </div>
 </div>
 
 4. Set the protocol as Email. Enter the email address you want to receive notifications and click "Create subscription."
  <div className="card">
     <div className="card__body">
-    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step4.png').default} /><br/><br/>
+    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step4.png').default} />
 </div>
 </div>
 
 5. Check your email inbox and confirm the subscription by clicking the link in the confirmation email from AWS.
  <div className="card">
     <div className="card__body">
-    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step5.png').default} /><br/><br/>
+    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step5.png').default} />
     </div>
     </div>
 
@@ -52,14 +52,14 @@ Click "Create Topic."
 1. In the AWS Management Console, go to Lambda.
  <div className="card">
     <div className="card__body">
-    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step6.png').default} /><br/><br/>
+    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step6.png').default} />
     </div>
     </div>
 
 2. Click "Create Function."
  <div className="card">
     <div className="card__body">
-    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step7.png').default} /><br/><br/>
+    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step7.png').default} />
     </div>
     </div>
  
@@ -67,7 +67,7 @@ Click "Create Topic."
 
  <div className="card">
     <div className="card__body">
-    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step8.png').default} /><br/><br/>
+    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step8.png').default} />
  </div>
  </div>
 
@@ -100,26 +100,26 @@ Click "Create Topic."
     ```
   <div className="card">
     <div className="card__body">
-    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step9.png').default} /><br/><br/>
+    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step9.png').default} />
 </div></div>
 
 5. To setup environment variable, go to "Configuration > Environment variables" in the Lambda console and add the following variable: SNS_TOPIC_ARN: The ARN of the SNS topic you created (find it under SNS topic details).
 <div className="card">
     <div className="card__body">
-    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step10.png').default} /><br/><br/>
+    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step10.png').default} />
 </div></div>
 
 6. Next, to assign Lambda permissions, navigate to IAM Console from the AWS Management Console. Under Roles, find the execution role created for your Lambda function (its name will be similar to the Lambda function name).
 <div className="card">
     <div className="card__body">
-    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step11.png').default} /><br/><br/>
+    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step11.png').default} />
  </div>
  </div>
 
 7. Click on the role, then click Add permissions > Attach policies.
 <div className="card">
     <div className="card__body">
-    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step12.png').default} /><br/><br/>
+    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step12.png').default} />
  </div>
 </div>
 
@@ -127,7 +127,7 @@ Click "Create Topic."
 
 <div className="card">
     <div className="card__body">
-    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step13.png').default} /><br/><br/>
+    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step13.png').default} />
  </div></div>
 
 9. Alternatively you can create a custom policy that allows sns:Publish to your topic ARN.
@@ -145,7 +145,7 @@ Click "Create Topic."
     ```
     <div className="card">
     <div className="card__body">
-    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step14.png').default} /><br/><br/>
+    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step14.png').default} />
     </div> 
     </div>
 
@@ -153,7 +153,7 @@ Click "Create Topic."
 10. To test the function, open your ProcessIncomingData function in lambda console. Click "Test" and create a test event with sample data (e.g., a simple JSON payload). Click "Test" again to invoke the function. Or send it through the Device
 <div className="card">
     <div className="card__body">
-    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step15.png').default} /><br/><br/>
+    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step15.png').default} />
 </div>
 </div>
 
@@ -161,7 +161,7 @@ Click "Create Topic."
 
    <div className="card">
     <div className="card__body">
-     <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step16.png').default} /><br/><br/>
+     <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step16.png').default} />
 </div>
 </div>
 
@@ -169,14 +169,14 @@ Click "Create Topic."
 1. Go to Protocol Configuration→Add Configuration
 <div className="card">
     <div className="card__body">
-    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step17.png').default} /><br/><br/>
+    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step17.png').default} />
  </div>
  </div>
 
 2. Select Webhook from the dropdown list
 <div className="card">
     <div className="card__body">
-    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step18.png').default} /><br/><br/>
+    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step18.png').default} />
    </div>
    </div>
 
@@ -199,7 +199,7 @@ Click "Create Topic."
 
     <div className="card">
     <div className="card__body">
-    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step19.png').default} /><br/><br/>
+    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step19.png').default} />
     </div>
     </div>
 
@@ -208,7 +208,7 @@ Click "Create Topic."
 
    <div className="card">
     <div className="card__body">
-     <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step20.png').default} /><br/><br/>
+     <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step20.png').default} />
     </div>
     </div>
 
@@ -228,7 +228,7 @@ Click "Create Topic."
  	
     <div className="card">
     <div className="card__body">
-    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step21.png').default} /><br/><br/>
+    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step21.png').default} />
     </div></div>
 
 
@@ -249,7 +249,7 @@ Click "Create Topic."
 
     <div className="card">
     <div className="card__body">	
-    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step22.png').default} /><br/><br/>
+    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step22.png').default} />
     </div>
     </div>
 
@@ -259,7 +259,7 @@ Click "Create Topic."
 Send payload data from the registered device to monoZ:Link. monoZ:Link shall translate protocol and push the received data to AWS Lambda function which in turn invoke the email with the incoming data.
     <div className="card">
     <div className="card__body">
-    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step23.png').default} /><br/><br/>
+    <img src={require('@site/static/img/monoZ-Link-AWS-Lambda-step23.png').default} />
     </div>
     </div>
 

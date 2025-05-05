@@ -160,6 +160,10 @@ table {
 table td {
   color: inherit;
   padding: 5px;
+} 
+.card.apiLogin {
+  max-width: 400px;
+  margin: 0 auto;
 }
 .card {
 	border: 1px solid var(--ifm-color-gray-200);

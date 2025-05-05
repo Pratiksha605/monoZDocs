@@ -3,41 +3,75 @@ title: AWS IoT Core
 sidebar_position: 3
 ---
 In this guide we will walkthrough setting up a “thing” in AWS IoT core to receive data from monoZ:Link. We will configure AWS IoT core configuration in monoZ:Link and attach it to device group. 
-<img src={require('@site/static/img/monoZ-Link-AWS-Iot.png').default} />
 
+  <div className="card">
+    <div className="card__body">
+<img src={require('@site/static/img/monoZ-Link-AWS-Iot.png').default} />
+</div>
+</div>
 
 #### Setup AWS IoT Core thing
 1. Access the AWS console. AWS IoT Core -> Manage → All Devices → Things
-    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step1.png').default} /><br /><br />
+  <div className="card">
+    <div className="card__body">
+    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step1.png').default} />
+    </div></div>
  
 
 2. Now click “Create Thing”.
-    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step2.png').default} /><br /><br />
+  <div className="card">
+    <div className="card__body">
+    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step2.png').default} />
+    </div>
+    </div>
  
 
 3. Select “Create Single Thing” and click “Next”.
-    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step3.png').default} /><br /><br />
+  <div className="card">
+    <div className="card__body">
+    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step3.png').default} />
+    </div>
+    </div>
 
 4. Enter a name in [Thing name] and click “Next”. Here, we'll name it "XXXXXXXXXXXXXXX5169".
-    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step4.png').default} /><br /><br />
+  <div className="card">
+    <div className="card__body">
+    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step4.png').default} />
+    </div>
+    </div>
  
 
 
 5. Select “Auto-generate a new certificate (recommended)” and click “Next”
-    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step5.png').default} /><br /><br />
- 
+  <div className="card">
+    <div className="card__body">
+    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step5.png').default} />
+    </div>
+    </div>
 
 6. The Attach Policy to Certificate - Options screen appears, where you would typically select a policy and assign it to the certificate. Since no policy has been yet, click “Create Thing” without attaching a policy.
-    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step6.png').default} /><br /><br />
+  <div className="card">
+    <div className="card__body">
+    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step6.png').default} />
+    </div>
+    </div>
  
 
 7. Click the corresponding Download button to download the following four files, and then click “Finish”. You will use these certificates (Device certificate, Public Key File, Private key file, Amazon Root CA 1) later. Now that the thing is created, you can create a policy to assign to the device (thing).
-    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step7.png').default} /><br /><br />
+  <div className="card">
+    <div className="card__body">
+    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step7.png').default} />
+    </div>
+    </div>
  
 
 
 8. Click Administration → Security → Policies → Create Policy. This time, we will create a new “test” policy that can publish to any MQTT topic.
-    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step8.png').default} /><br /><br />
+  <div className="card">
+    <div className="card__body">
+    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step8.png').default} />
+    </div>
+    </div>
  
 
 9. Set each item and click [Add new statement] and add the following items:
@@ -75,20 +109,36 @@ In this guide we will walkthrough setting up a “thing” in AWS IoT core to re
     	
 
 10. Click “Create”. The policy is created. 
-    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step9.png').default} /><br /><br />
+  <div className="card">
+    <div className="card__body">
+    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step9.png').default} />
+    </div>
+    </div>
  
 
 11. Next, attach the policy created to the thing certificate. Check the certificate you created and click Actions → Attach Policy.
-    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step10.png').default} /><br /><br />
+  <div className="card">
+    <div className="card__body">
+    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step10.png').default} />
+    </div>
+    </div>
  
 
 12. Select AWS IoT Test, check the “Test” policy you created, and click “Attach Policy”. This completes the registration of the thing in AWS IoT Core.
-    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step11.png').default} /><br /><br />
+  <div className="card">
+    <div className="card__body">
+    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step11.png').default} />
+    </div>
+    </div>
  
 
 
 13. Finally, we will get the custom endpoint for sending data to AWS IoT Core. This endpoint shall be used when creating configuration in monoZ:Link. Access the AWS IoT console and click [Settings] and copy the contents shown in [Endpoints] under [Device data endpoints]. 
-    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step12.png').default} /><br /><br />
+  <div className="card">
+    <div className="card__body">
+    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step12.png').default} />
+    </div>
+    </div>
  
 
 
@@ -102,10 +152,18 @@ In this guide we will walkthrough setting up a “thing” in AWS IoT core to re
     </table>
 
 2. Open monoZ:Link -> Protocol configuration -> Add Configuration
-    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step13.png').default} /><br /><br />
+  <div className="card">
+    <div className="card__body">
+    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step13.png').default} />
+    </div>
+    </div>
 
 3. Select AWS IoT Core from the dropdown list
-    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step14.png').default} /><br /><br />
+  <div className="card">
+    <div className="card__body">
+    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step14.png').default} />
+    </div>
+    </div>
  
 
 4. Add the configuration details and click “Save”
@@ -117,12 +175,19 @@ In this guide we will walkthrough setting up a “thing” in AWS IoT core to re
     <tr><td>Topic</td><td>	Topic to publish on AWS IoT Core. It could be “Same as incoming” or Custom topic.</td></tr>
     <tr><td>QOS</td><td>	MQTTS QOS for publish to AWS IoT Core. Zero or One </td></tr>
     </table>
-    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step15.png').default} /><br /><br />
+      <div className="card">
+    <div className="card__body">
+    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step15.png').default} />
+    </div></div>
 
  
 
 5. Navigate to Groups → Add Group
-    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step16.png').default} /><br /><br />
+  <div className="card">
+    <div className="card__body">
+    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step16.png').default} />
+    </div>
+    </div>
  
 
 6. Add the necessary details in the fields and click “Save”
@@ -130,7 +195,11 @@ In this guide we will walkthrough setting up a “thing” in AWS IoT core to re
     <tr><td>Group Name</td><td>	Test Group (Any Name)</td></tr>
     <tr><td>Available Configuration</td><td>	Test Config (Select from the configuration)</td></tr>
     </table>
-    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step17.png').default} /><br /><br />
+      <div className="card">
+    <div className="card__body">
+    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step17.png').default} />
+    </div>
+    </div>
 
  
 
@@ -141,13 +210,21 @@ In this guide we will walkthrough setting up a “thing” in AWS IoT core to re
         <tr><td>Client Certificate</td><td>	random string-certificate.pem.crt</td></tr>
         <tr><td>Client Key file</td><td>	random string-private.pem.key</td></tr>
     </table>
-    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step18.png').default} /><br /><br />
+      <div className="card">
+    <div className="card__body">
+    <img src={require('@site/static/img/monoZ-Link-AWS-Iot-step18.png').default} />
+    </div>
+    </div>
 
  
 
 #### Send data from the device
 1. Before data send, lets setup test client on AWS IoT core to view the incoming data. Navigate to MQTT test client in AWS IoT core console and subscribe to your device push topic. 
-<img src={require('@site/static/img/monoZ-Link-AWS-Iot-step19.png').default} /><br /><br />
+  <div className="card">
+    <div className="card__body">
+<img src={require('@site/static/img/monoZ-Link-AWS-Iot-step19.png').default} />
+</div>
+</div>
 
 2. Send payload data from the Device “XXXXXXXXXXXXXXX5169” to monoZ:Link. monoZ:Link shall translate protocol and push the received data to AWS IoT Core over MQTTS. It can be verified in the MQTT test client feature.
      

@@ -11,5 +11,9 @@ Any call to the published APIs must be securely authenticated. During registrati
 ```jsx
 --header 'X-API-Key: exampleapikeyabcdefgh123456'
 ```
+  <div className="card apiLogin">
+    <div className="card__body">
 <img src={require('@site/static/img/cc.jpg').default} />
+</div>
+</div>
 
