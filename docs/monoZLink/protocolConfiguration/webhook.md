@@ -10,7 +10,12 @@ In this guide we will walkthrough setting up Webhook configuration in monoZ:Link
 
 2. Choose “Webhook” as destination protocol.
 
+  <div className="card">
+    <div className="card__body">
 <img src={require('@site/static/img/monoZ-Link-Wehbook.jpg').default} className="img-center" />
+</div>
+</div>
+
 
 3. Add the destination server details and create the configurations.
    1.	Specify MQTT in the Source protocol 
@@ -29,7 +34,11 @@ In this guide we will walkthrough setting up Webhook configuration in monoZ:Link
    
    8.	Upon Submit the configuration shall be created
 
+  <div className="card">
+    <div className="card__body">
   <img src={require('@site/static/img/monoZ-Link-Protocol-Configuration.png').default} className="img-center" />
+  </div>
+  </div>
 
 #### Webhook Data Push Format:
 monoz:Link pushes data to the specified server in the following format.

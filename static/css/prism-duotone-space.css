@@ -116,12 +116,12 @@ code.language-scss,
 .token.statement,
 .token.regex,
 .token.atrule {
-	color: #fe8c52;
+	color: #79cbc2;
 }
 
 .token.placeholder,
 .token.variable {
-	color: #fe8c52;
+	color: #79cbc2;
 }
 
 .token.deleted {

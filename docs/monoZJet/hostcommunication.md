@@ -49,10 +49,17 @@ monoZ:Jet can be accessed via USB by connecting a USB-C cable between the host a
 ### Cascade UART mode
 monoZ:Jet can be accessed via UART by two methods.
 <br/>Method 1: Cutoff the optional part of the monoZ:Jet board. This is a permanent switch and it is ideal for space constrained usecases. 
+<div className="card">
+    <div className="card__body">
     <img className="img-center" src={require('@site/static/img/quickguide2.png').default} />
+    </div>
+    </div>
  <br/>Method 2: Remove the three resistors shown below to disconnect the communication line between the USB and the processor. In this method monoZ:Jet can be switched back to USB mode by remounting the resistors in their original positions. Meritech strictly disclaims any responsibility for hardware issues, including malfunction of monoZ:Jet caused by removal or reinstallation of resistors.
+ <div className="card">
+    <div className="card__body">
     <img className="img-center" src={require('@site/static/img/quickguide3.png').default} />
-
+</div>
+</div>
 Once hardware is prepared, monoZ:Jet can be accessed via UART by connecting p7,p8 of cascade connector J1 to  RX & TX of the host. This enables UART as the data channel for monoZ:Jet. In UART mode, monoZ:Jet can be powered by connecting p1, p2 of connector J2 to 5V DC power input and GND. 
 
 <div className="card">

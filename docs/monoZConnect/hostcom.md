@@ -6,7 +6,11 @@ sidebar_position: 3
 
 Communication with monoZ:Connect is simplified using monoZ:Connect Service(MZCS) Application. MZCS can be installed on Windows/Linux platform and using the MZCS commands, users can communicate to monoZ:Connect from the user application. Upon installation of MZCS, use the MZCS commands to interact with monoZ:Connect with MZCS.
 
+ <div className="card">
+    <div className="card__body">
 <img src={require('@site/static/img/monoZ-Connect-Host-Comm.jpg').default} className="img-center" />
+</div>
+</div>
 
 ### System Requirements(MZCS)
 

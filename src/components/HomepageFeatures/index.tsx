@@ -20,12 +20,12 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: 'monoZ:Link',
-    Svg: require('@site/static/img/monoZLink.svg').default,
+    Svg: require('@site/static/img/monoZLink2.svg').default,
     description: '/docs/monoZLink/introduction',
   },  
   {
     title: 'monoZ:Connect',
-    Svg: require('@site/static/img/monoZConnect.svg').default,
+    Svg: require('@site/static/img/monoZConnect1.svg').default,
     description: '/docs/monoZConnect/introduction',
   },
 ];

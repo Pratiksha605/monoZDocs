@@ -21,4 +21,8 @@ monoZ:Connect is an industrial grade NIDD dongle used for overseeing and analyzi
 
 - Weight: 50 grams
 
+ <div className="card">
+    <div className="card__body">
 <img src={require('@site/static/img/monoZ Connect.png').default} className="img-center" />
+</div>
+</div>

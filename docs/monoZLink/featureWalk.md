@@ -22,10 +22,20 @@ If your organisation already holds a monoZ:Link account, contact your organisati
     6.	Contact Details: Click same as above or in case if you need someone else as contact person in your organization then enter their details. 
 
     7. Verify your email address and activate your account by clicking on the link in the email you receive from monoZ. The link will activate your account and you should be able to login to link.monoz.io.
-
+<div className="card">
+    <div className="card__body">
    <img src={require('@site/static/img/monoZ-Link-feature-walk-through.png').default} className="img-center" />
+   </div>
+   </div>
+   <div className="card">
+    <div className="card__body">
    <img src={require('@site/static/img/monoZ-Link-Account.png').default} className="img-center" />
+   </div></div>
+   <div className="card">
+    <div className="card__body">
    <img src={require('@site/static/img/emailActivate.png').default} className="img-center" />
+   </div>
+   </div>
 
 ### Create Order
 
@@ -55,10 +65,16 @@ monoZ:Link also hosts order management system to procure, track orders of monoZ 
    5. Cancelled: The order has been cancelled by monoZ team 
 
 8. 	Every order status change is accompanied with an email notification to the contact email registered to the organization.
-
+   <div className="card">
+    <div className="card__body">
 <img src={require('@site/static/img/monoZ-Link-Order.jpg').default} className="img-center" />
+</div>
+</div>
+   <div className="card">
+    <div className="card__body">
 <img src={require('@site/static/img/monoZ-Link-Add-Order.jpg').default} className="img-center" />
-
+</div>
+</div>
 
 ### Create Protocol Configuration
 
@@ -81,9 +97,11 @@ Groups provide a way to organize your devices, distribute firmware, and set a co
     4. Set as Default: Sets group as default. The new devices added to monoZ:Link shall be automatically added to the default group. 
     
     5. IMEI Lock: When enabled, when an device is attached to the group it locks the SIM of device with the currently connected device IMEI. If its a new SIM that hasn`t been connected to network, then enabling this feature will lock the SIM to the IMEI of its first device. If the IMEI locked SIM is swapped to another device it will fail to connect with network. 
-
+   <div className="card">
+    <div className="card__body">
  <img src={require('@site/static/img/monoZ-Link-Group.jpg').default} className="img-center" />
-
+</div>
+</div>
  ### Add Device to Group
 
  Devices represents the SIM used by actual device in the field. Follow the steps below to attach a newl device with a group.
@@ -96,9 +114,22 @@ Groups provide a way to organize your devices, distribute firmware, and set a co
 
 4.	Upon successful addition, the devices shall appear in the “Devices” page. Now the setup is complete and device is set to receive data from physical device. However, we recommend a 1minute delay after moving device and before sending data.
 
+   <div className="card">
+    <div className="card__body">
  <img src={require('@site/static/img/monoZ-Link-Registered-Devices.jpg').default} className="img-center" />
- <img src={require('@site/static/img/monoZ-Link-Destination-Group.jpg').default} className="img-center" />
+ </div>
+ </div>
+    <div className="card">
+    <div className="card__body">
+ <img src={require('@site/static/img/monoZ-Link-Destination-Group.jpg').default} 
+ className="img-center" />
+ </div>
+ </div>
+       <div className="card">
+    <div className="card__body">
  <img src={require('@site/static/img/monoZ-Link-Devices.jpg').default} className="img-center" />
+</div>
+</div>
 
  ### View/Edit Device
 
@@ -133,7 +164,14 @@ On the devices list, each device has 3 action buttons
 
 8.	Send Button: Initiate Downlink request. 
 
+
+   <div className="card">
+    <div className="card__body">
 <img src={require('@site/static/img/monoZ-Link-Device-List.jpg').default} className="img-center" />
+</div>
+</div>
+
+
 
 Upon clicking on device row, a side menu pops up with more information.
 
@@ -157,7 +195,12 @@ Upon clicking on device row, a side menu pops up with more information.
 
 10.	Usage graph: Daily & monthly data as well as uplink & downlink message usage statistics.
 
+  <div className="card">
+    <div className="card__body">
 <img src={require('@site/static/img/monoZ-Link-Device-Info.jpg').default} className="img-center" />
+</div>
+</div>
+
 
 ### Send data from IoT device to monoZ:Link
 
@@ -249,7 +292,11 @@ Follow steps below to send a downlink message from monoZ:Link to the device,
 4. When "Retain last message" is checked, the message to stored to the broker topic and device shall receive it upon successful subscribe.
 
 <!-- <img src={require('@site/static/img/monoZ-Link-DownLink-Message.jpg').default} className="img-center" />  -->
+  <div className="card">
+    <div className="card__body">
 <img src={require('@site/static/img/monoZ-Link-DownLinkBtn.png').default} className="img-center" /> 
+</div>
+</div>
 
 <b> Note: </b>
 1. Line breaks are not supported in the message box, including linebreaks in JSON format.
@@ -287,11 +334,19 @@ Follow steps below to create new users,
 1. Login as organisation owner. 
 2. Enter “Users” menu and click “Add User”.
 
+  <div className="card">
+    <div className="card__body">
 <img src={require('@site/static/img/monoZ-Link-Users.jpg').default} className="img-center" />
+</div>
+</div>
 
 3. Enter the respective information and click “save”.
 
+  <div className="card">
+    <div className="card__body">
 <img src={require('@site/static/img/monoZ-Link-Save.jpg').default} className="img-center" />
+</div>
+</div>
 
     -   User name: enter any name
     -   Login ID: enter login ID. Enter in email address format.
@@ -303,7 +358,11 @@ Follow steps below to create new users,
 
 To block connections from misbehaving servers, monoZ:Link has incorporated group blocking feature. If data push failure occur atleast 10 consecutive times and for 10minutes then monoZ:Link determine that there is a problem with the user server and data push for all devices in that group will be stopped. An alert email will be sent to customer for unblocking the group and data push will resume only after unblocking.
 
+  <div className="card">
+    <div className="card__body">
 <img src={require('@site/static/img/monoZ-Link-Limitations-Group-Blocking.jpg').default} className="img-center" />
+</div>
+</div>
 
 Example scenario for blocking:
 
