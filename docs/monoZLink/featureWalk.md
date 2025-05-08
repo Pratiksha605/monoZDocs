@@ -3,7 +3,7 @@ title: Feature Walk through
 sidebar_position: 2
 ---
 
-### Create monoZ:Link account
+### Create monoZ&#58;Link account
 
 If your organisation already holds a monoZ:Link account, contact your organisation admin to add you as an user. If your organisation doesnt have an account, follow the steps below to create an account.
 
@@ -202,7 +202,7 @@ Upon clicking on device row, a side menu pops up with more information.
 </div>
 
 
-### Send data from IoT device to monoZ:Link
+### Send data from IoT device to monoZ&#58;Link
 
 monoZ:Link use MQTT protocol to recieve data from its registered device. Details related to the Uplink message over MQTT are as follows, 
 
@@ -258,7 +258,7 @@ Here is a simple example of data transfer with monoZ:Jet,
     </tr>
 </table>  -->
 
-### Send data from monoZ:Link to IoT Device
+### Send data from monoZ&#58;Link to IoT Device
 
 Payload data can be sent from monoZ:Link to any registered device over MQTT protocol. Details related to the downlink message over MQTT are as follows,
 
