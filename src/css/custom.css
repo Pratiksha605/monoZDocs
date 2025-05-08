@@ -316,6 +316,10 @@ text-decoration: none;
 .navbar__toggle svg path {
 	stroke: #fff !important;
 }
+.navbar__brand:hover {
+  color: var(--ifm-color-primary-light);
+  text-decoration: none;
+}
 @media (min-width: 1600px) {
   [class*='docItemCol_'] {
     padding: 0 70px;
