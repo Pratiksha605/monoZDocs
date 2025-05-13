@@ -320,6 +320,10 @@ text-decoration: none;
   color: var(--ifm-color-primary-light);
   text-decoration: none;
 }
+.navbar__link:hover, .navbar__link--active {
+    color: var(--ifm-color-primary-light);
+    text-decoration: none;
+}
 @media (min-width: 1600px) {
   [class*='docItemCol_'] {
     padding: 0 70px;
