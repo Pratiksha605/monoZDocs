@@ -153,6 +153,9 @@ div[class*='colorModeToggle_'],
 .row.g-1 .col {
   padding: 0 4px;
 }
+.table-of-contents__link:hover, .table-of-contents__link:hover code, .table-of-contents__link--active, .table-of-contents__link--active code {
+    color: var(--ifm-color-primary-light);
+}
 table {
   color: var(--ifm-color-gray-700);
 	font-size: 0.84rem;
@@ -317,11 +320,11 @@ text-decoration: none;
 	stroke: #fff !important;
 }
 .navbar__brand:hover {
-  color: var(--ifm-color-primary-light);
+  color: var(--ifm-color-primary-light) !important;
   text-decoration: none;
 }
 .navbar__link:hover, .navbar__link--active {
-    color: var(--ifm-color-primary-light);
+    color: var(--ifm-color-primary-light) !important;
     text-decoration: none;
 }
 @media (min-width: 1600px) {
