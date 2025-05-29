@@ -33,8 +33,14 @@ sidebar_position: 9
                     <br/>monoZ:Jet max message length is 1024 bytes.</div>
                 </div>
                 <div className="row mb-2">
+                    <div className="col col--4"><code>RetainLastMessage</code></div>
+                    <div className="col col--8"> When set to true, the message is stored by monoZ:Link broker and device shall receive it upon successful subscribe.
+                    <br/>True: Send as Retain message.
+                    <br/>False: Send as Non-Retain message.</div>
+                </div>
+                <div className="row mb-2">
                     <div className="col col--4"><code>Format</code></div>
-                    <div className="col col--8">Desgnate downlink message format.
+                    <div className="col col--8">Designate downlink message format.
                     <br/>0:JSON
                     <br/>If message is JSON format, any CRLF or CR included in messsage shall be removed by monoZ:Link before pushing to the device. 
                     <br/>1:TEXT
@@ -109,6 +115,7 @@ sidebar_position: 9
                     "ICCID": "12345678",
                     "Topic": "/ABC",
                     "Message": "XYZ",
+                    "RetainLastMessage": true,
                     "QoS": 0,
                     "Format": 1
                 }'
@@ -116,7 +123,6 @@ sidebar_position: 9
             ##### Response
             ```jsx
             {
-                "Error": false,
                 "StatusCode": 200,
                 "Message": "MessagePublished"
             }

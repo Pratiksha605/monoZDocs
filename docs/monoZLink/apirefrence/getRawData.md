@@ -108,8 +108,7 @@ sidebar_position: 7
             ##### Response
             ```jsx
             {
-                "Error": false,
-                "Message": "FetchSuccess",
+               "Message": "FetchSuccess",
                 "StatusCode": 200,
                 "Data": [
                     {

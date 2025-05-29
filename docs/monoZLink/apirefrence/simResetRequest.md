@@ -82,7 +82,6 @@ sidebar_position: 4
             ##### Response
             ```jsx
             {
-                "Error": false,
                 "StatusCode": 200,
                 "Message": "UpdateSuccess"
             }
