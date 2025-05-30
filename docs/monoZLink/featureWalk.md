@@ -17,7 +17,7 @@ If your organisation already holds a monoZ:Link account, contact your organisati
 
     4.	Organization Name: Enter the name of your company/organization.
 
-    5.	Org ID: Unique identifier for your organization. Org ID is limited to a maximum of 8 Alpha-Numeric characters. Once created it cannot be changed. 
+    5.	Org ID: Unique identifier for your organization. This ID creation is automated by monoZ:Link.
 
     6.	Contact Details: Click same as above or in case if you need someone else as contact person in your organization then enter their details. 
 
