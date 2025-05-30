@@ -149,7 +149,9 @@ div[class*='colorModeToggle_'],
 /* .response span .token.plain {
   color: var(--ifm-color-gray-600) !important;
 } */
-
+.navbar__item .dropdown__menu {
+    cursor: pointer;
+}
 .row.g-1 .col {
   padding: 0 4px;
 }

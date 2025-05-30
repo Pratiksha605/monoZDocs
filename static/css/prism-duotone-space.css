@@ -79,9 +79,9 @@ pre[class*="language-"] {
 	color: #dd672c;
 }
 
-.token.number {
+/* .token.number {
 	color: #fff !important;
-}
+} */
 
 .token.property,
 .token.function {
