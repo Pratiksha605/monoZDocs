@@ -56,10 +56,7 @@ sidebar_position: 9
                 <small>Success <small className="text-gray">MessagePublished</small></small>
             </summary>
             ###### Response Body
-            <div className="response_details">
-                <strong>Error</strong>&nbsp;&nbsp;  <small className="text-gray">boolean</small> 
-                <p>Indicates if there was an error.</p>
-            </div>
+            
             <div className="response_details">
                 <strong>StatusCode</strong>&nbsp;&nbsp;  <small className="text-gray">integer</small> 
                 <p>HTTP status code of the response.</p>
