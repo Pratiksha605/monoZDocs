@@ -23,7 +23,7 @@ monoZ:Connect is an industrial grade NIDD dongle used for overseeing and analyzi
 
 <div className="card">
    <div className="card_body">
-<img src={require('@site/static/img/monoZ-Connect-Banner.jpg').default} className="img-center" />
+<img src={require('@site/static/img/monoz-Connect.png').default} className="img-center" />
    </div>
 </div>
 
