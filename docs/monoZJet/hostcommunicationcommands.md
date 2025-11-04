@@ -862,7 +862,7 @@ This command is used to capture and return the system clock.
 This command is used to read the status of connected network. 
 
 <CodeBlock language="javascript" title="Execution command">
-{`MZSTATUS`}
+{`MZNWSTATUS`}
 </CodeBlock>
 
 <CodeBlock language="javascript" title="Response"  className="responseJet">

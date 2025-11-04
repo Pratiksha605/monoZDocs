@@ -1,18 +1,19 @@
 ---
-title: POC Kit - old remove
+title: monoZ:Jet POC Kit
 sidebar_position: 1
-
 ---
-remove
 
-<!-- Welcome to the Quickstart Guide for setting up your monoZ POC kit. In this guide we shall cover from POC kit unboxing and demonstrate how to send your first message from your device to monoZ:Link using monoZ:Jet and vice versa. This is a quickstart guide and for detailed description & limitations of individual features/commands, check out the respective sections in monoZ docs site.
+import CodeBlock from '@theme/CodeBlock';  
+
+Welcome to the Quickstart Guide for setting up your monoZ POC kit. In this guide we shall cover from POC kit unboxing and demonstrate how to send your first message from your monoZ:Jet to monoZ:Link and vice versa. This is a quickstart guide and for detailed description & limitations of individual features/commands, check out the respective sections in monoZ docs site.
+
 
 ### Prerequisites
 Before we get started, let’s prepare the essentials. 
 1.	We assume you already have a valid monoZ:Link account. If not, ask your organization admin to provide access to your organization`s existing account or <a target="_blank" href="https://link.monoz.io/monoZLink/Login">click here</a> to create a new organization and account.
 2.	We assume you already have a POC kit in hand. If not, create an order from monoZ:Link Order management tab.
-3.	We assume the ICCID of the 1NCE SIM in the POC kit is already registered in monoZ:Link under Devices menu or in Registered devices under Devices menu. If it is not registered, contact support by emailing customer-care@meritech.odoo.com
-4.	Prepare your host device and soldering kit/USB cable to enable connection between host device and monoZ:Jet.
+3.	We assume the ICCID of the 1NCE SIM in the POC kit is already registered in your monoZ:Link account under Devices menu or in Registered devices under Devices menu. If it is not registered, contact support by emailing customer-care@meritech.odoo.com
+4.	Prepare your host device which shall prepare the payload data for monoZ:Jet. 
 
 ### Unboxing
 1.	Open your POC kit package to find the following items,\
@@ -20,63 +21,233 @@ Before we get started, let’s prepare the essentials.
     ii.	1NCE SIM \
     iii.	Standard Antenna \
     iv.	Pi Add-on board (optional board) 
-2.	Upon unboxing, verify if the ICCID on the SIM is available under Devices or under Registered devices list.
-    <img className="img-center" src={require('@site/static/img/quickguide1.png').default} />
+2.	Upon unboxing, verify if the ICCID on the SIM is available under "Devices" or under "Registered devices" list of your monoZ:Link account. If it is under "Registerd devices", create a group and move it to "Devices".
+ <div className="card">
+    <div className="card__body">	
+    <img className="img-center" src={require('@site/static/img/quickguide1_1.png').default} />
+    </div>
+    </div>
+    <br/>
+     <div className="card">
+    <div className="card__body">	
+    <img className="img-center" src={require('@site/static/img/quickguide1_2.png').default} />
+    </div>
+    </div>
 
-### Setting Up monoZ:Jet
+### monoZ : Jet setup
 1.	monoZ:Jet can communicate with the host via USB mode or UART mode. By default, USB mode is enabled.
-2.	If you want the host to communicate with monoZ:Jet using UART, then monoZ:Jet can be switched to UART mode by one of the following methods, \
-    i.	Method 1: Cutoff the optional part of the monoZ:Jet board using PCB cutter. This is a permanent switch and monoZ:Jet cannot be used under USB mode again, however it is ideal for space constrained usecases. 
-    <img className="img-center" src={require('@site/static/img/quickguide2.png').default} />
-    ii.	Remove the following 3 resistors shown below to disconnect the communication line between USB and the processor. In this method monoZ:Jet can be converted to USB mode by mounting the resistors back to its appropriate position.
-    <img className="img-center" src={require('@site/static/img/quickguide3.png').default} />
-3.	Check the communication configurations for USB mode & UART mode <a target="_blank" href="https://docs.monoz.io/docs/monoZJet/hostcommunication">here</a>.
-4.	For this quickstart guide, we shall use our PC as the host device and communicate with monoZ:Jet over USB using a terminal emulator.
+2.	If you wish to setup monoZ:Jet to UART mode, then then following the instructions in <a target="_blank" href="https://docs.monoz.io/docs/monoZJet/hostcommunication">monoZ:Jet Host communication page </a> for detailed steps.
+3.	For this quickstart guide, we shall use our PC as the host device and communicate with monoZ:Jet over USB using a terminal emulator.
+ <div className="card">
+    <div className="card__body">	
     <img className="img-center" src={require('@site/static/img/quickguide4.png').default} />
+</div>
+</div>
 
-Caution:\
-i)	Do not power up monoZ:Jet via USB and 5V cascade VBUS pin at the same time. This may cause the monoZ:Jet to fail. The power source may also face damage (or overcurrent).\
-ii)	When in USB mode, the cascade UART pins shouldn’t be connected to any data source. monoZ:Jet shall face device failure when data is transmitted through cascade UART when monoZ:Jet is in USB mode.
+##### Caution: 
+i) Do not power up monoZ:Jet via USB and 5V cascade VBUS pin at the same time. This may cause monoZ:Jet to malfunction. The power source may also face overcurrent and potential damage.\
+ii) When in USB mode, the cascade UART pins should remain disconnected from any data source. Transmitting data through the cascade UART while monoZ:Jet is in USB mode may result in signal corruption and monoZ:Jet malfunction.
 
 
+### monoZ : Link Setup
+Lets setup a fresh monoZ:Link account. In case you already have a device registered to a valid group in monoZ:Link then skip this section. In this guide we`ll setup a webhook configuration and attach it to the registered device.
 
-### Setting Up monoZ:Link
-1.	If this is your first device, the monoZ:Link setup is required. Let’s log in to monoZ:Link and start with protocol configurations. Protocol configurations allow you to transform protocol and forward your data from monoZ:Jet to your custom endpoints in public cloud like AWS or your own on-premises. For this guide, we shall push the data to a 3rd party custom HTTPS endpoint.
-2.	Let’s navigate to protocol configurations and create a new webhook configuration. 
-    <img className="img-center" src={require('@site/static/img/quickguide5.png').default} />
-3.	Once configuration is done, let's navigate to Groups and create a new group. If there is no group, then the first created group shall be automatically allocated as “Default” group. 
-    <img className="img-center" src={require('@site/static/img/quickguide6.png').default} />
-4.	As we didn’t have a default group during time of purchase let’s manually assign a group to the device. Navigate to Registered devices in the Devices page and select the ICCID of the target device. When a default group was available during purchase (purchase here refers to the step when device ICCIDs are added to user`s monoZ:Link account), then the new devices are automatically assigned to the default group, thereby making them ready to use upon purchase. With this step, monoZ:Link setup is complete.
-    <img className="img-center" src={require('@site/static/img/quickguide7.png').default} />
- 
+1. Navigate to “Configuration” -> “Add Configuration” -> "Webhook". Add the destination server details and create the configurations.
 
-### Send data from monoZ:Jet
+   1.	Specify MQTT in the Source protocol 
+
+   2.	Enter your configuration name 
+
+   3.	Enter suitable description for the configuration  
+
+   4.	Enter the HTTP/HTTPS URL for the destination Server 
+
+   5.	Select the Authorization method under the Parameters 
+
+   6.	If you wish to give a custom header (e.g., group name, etc.) add your custom Header 
+
+   7.	Choose Between ICCID or Topic to be sent along with the payload to the destination server 
+   
+   8.	Upon Submit the configuration shall be created
+ <div className="card">
+    <div className="card__body">
+  <img src={require('@site/static/img/monoZ-Link-Wehbook.jpg').default} className="img-center" />
+  </div>
+  </div>
+   <div className="card">
+    <div className="card__body">
+  <img src={require('@site/static/img/monoZ-Link-Protocol-Configuration.png').default} className="img-center" />
+  </div>
+  </div>
+
+2. Next, navigate to Groups -> Add Group. Enter the respective information and click “save”.
+    1. Group name: Max 20 Alpha-Numeric characters including @$#._-  
+    2. Available configuration: Select protocol configuration for the group.
+    3. Description: Free comments.
+    4. Set as Default: Sets group as default. The new devices added to monoZ:Link shall be automatically added to the default group. 
+    5. IMEI Lock: When enabled, when an device is attached to the group it locks the SIM of device with the currently connected device IMEI. If its a new SIM that hasn`t been connected to network, then enabling this feature will lock the SIM to the IMEI of its first device. If the IMEI locked SIM is swapped to another device it will fail to connect with network. 
+
+ <div className="card">
+    <div className="card__body">
+ <img src={require('@site/static/img/monoZ-Link-Group.jpg').default} className="img-center" />
+ </div>
+ </div>
+
+3. Now Devices represents the SIM used by actual device in the field. Follow the steps below to attach a newl device with a group.
+
+    1.	Navigate to Devices menu and click on “Registered Devices”. When new endpoints are procured, upon successful communication, the endpoints are available in this space.
+    2.	Select the devices to be moved to your Device list. 
+    3.	Click “Move” button on the top left corner and select the target Group from the dropdown list. 
+    4.	Upon successful addition, the devices shall appear in the “Devices” page. Now the setup is complete and device is set to receive data from physical device. However, we recommend a 1minute delay after moving device and before sending data.
+ <div className="card">
+    <div className="card__body">
+ <img src={require('@site/static/img/monoZ-Link-Registered-Devices.jpg').default} className="img-center" />
+ </div>
+ </div>
+  <div className="card">
+    <div className="card__body">
+ <img src={require('@site/static/img/monoZ-Link-Destination-Group.jpg').default} className="img-center" />
+ </div>
+ </div>
+  <div className="card">
+    <div className="card__body">
+ <img src={require('@site/static/img/monoZ-Link-Devices.jpg').default} className="img-center" />
+ </div>
+ </div>
+
+
+### Send data from monoZ : Jet
 1.	Let’s initiate data transfer from host to monoZ:Jet. As mentioned earlier, we shall use PC as the host device for this QuickStart guide. To begin, attach the standard antenna on u.FL port (Cellular) and insert the 1NCE SIM from the POC package to monoZ:Jet.
+ <div className="card">
+    <div className="card__body">
     <img className="img-center" src={require('@site/static/img/quickguide8.png').default} />
+    </div>
+    </div>
  
-2.	Connect monoZ:Jet to your PC via USB-C cable. Once connected you should immediately notice the Power LED (Red) light up on the monoZ:Jet board.
+2.	Connect monoZ:Jet to your PC via USB-C cable. Once connected you should immediately notice the Power LED (Red) light-up on the monoZ:Jet board.
+ <div className="card">
+    <div className="card__body">
     <img className="img-center" src={require('@site/static/img/quickguide9.png').default} />
- 
-3.	Now, Let's set up the terminal emulator to establish communication with monoZ:Jet. <a target="_blank" href="https://docs.monoz.io/v1/_d_e_b_u_g__c_o_n_s_o_l_e.html">Click here to view</a> step by step guide on setting PUTTY, an open-source software terminal emulator.
+    </div>
+    </div>
+
+3.	Now, let's set up the terminal emulator to communication with monoZ:Jet from PC. <a target="_blank" href="https://docs.monoz.io/v1/_d_e_b_u_g__c_o_n_s_o_l_e.html">Click here to view</a> step by step guide on setting PUTTY, an open-source software terminal emulator.
+
 4.	Upon power on, monoZ:Jet sends +MZREADY to the host signaling readiness to receive commands for next action. This is received within milliseconds on connecting USB to monoZ:Jet and hence you may not be able to capture it on the emulator console. 
-5.	By default monoZ:Jet is set with all supported network bands, and we strongly advise to set the recommended bands in your target regions of operation to quicken the time to network connection. Refer to the MZBAND MZ command for more details on recommended band settings. Since we are performing this setup from Japan, let’s set the band for Japan. This is a one-time setting and doesn’t need to be repeated unless required to change the target region for usage. +MZBAND: 0 response refers to successful Band setting.
+
+5.	Once ready, we recommend band setting using <a target="_blank" href="https://docs.monoz.io/docs/monoZJet/hostcommunicationcommands#set-band"> MZBAND command</a>. By default monoZ:Jet is set with all supported network bands, and we strongly advise to set the recommended bands for your target regions of operation to quicken the time to network connection. Since we are performing this setup from Japan, let’s set the band for Japan. +MZBAND: 0 response refers to successful Band setting. Band setting is an one-time setting on monoZ:Jet.
+    
+   <CodeBlock language="javascript" title="Execution Command" className="execution">
+{` MZBAND=0x0,0x20081,0x0`}
+    </CodeBlock>
+
+  <CodeBlock language="javascript" title="Response"  className="responseJet">
+{`MZOK
++MZBAND: 0 `}
+</CodeBlock>    
+ <div className="card">
+    <div className="card__body">
     <img className="img-center" src={require('@site/static/img/quickguide10.png').default} />
-6.	Next let's go ahead and set the ORG ID for monoZ:Jet. ORG ID is a security feature by monoZ:Link to ignore data transferred from devices not belonging to the tenants. ORG ID is set by the user during organization creation and can be verified under the “Profile” section of the organization/tenant admin. ORG ID is a one-time setting on monoZ:Jet.
+</div></div>
+
+6.	Next let's go ahead and set the ORG ID for monoZ:Jet using <a target="_blank" href="https://docs.monoz.io/docs/monoZJet/hostcommunicationcommands#set-org-id"> MZORGID MZ command</a>. ORG ID is a security feature by monoZ:Link to validate the device transferred data to monoZ:Link. ORG ID is an one-time setting on monoZ:Jet.
+ <div className="card">
+    <div className="card__body">
     <img className="img-center" src={require('@site/static/img/quickguide11.png').default} /><br/>
-    <img className="img-center" src={require('@site/static/img/quickguide12.png').default} />
+</div></div>
 
-7.	Now let’s initialize monoZ:Jet and get connected using MZSTART. There could be chances MZSTART might respond back with +MZSTART: 3 or +MZSTART: 4, where monoZ:Jet is retrying to connect to network or monoZ:Link platform. In such cases host is expected to wait for +MZSTART: 0. When searching for network, monoZ:Jet searches all the set bands in incremental order to attach to the best possible network supported in the region, and hence setting the recommended regional bands plays a crucial role to minimize the time to connect with network. With the recommended band settings, we can expect first network connection to be completed in under 2 minutes. While creating this guide, we received successful +MZSTART:0 in about 45 seconds. 
-    <img className="img-center" src={require('@site/static/img/quickguide13.png').default} />
-8.	Once the +MZSTART: 0 is recieved, host can send data to monoZ:Link using the MZSEND command. 
+   <CodeBlock language="javascript" title="Execution Command" className="execution">
+    {`MZORGID="xxxx"`}
+    </CodeBlock>
+
+    <CodeBlock language="javascript" title="Response"  className="responseJet">
+{`MZOK
++MZORGID: 0`}
+</CodeBlock>
+ <div className="card">
+    <div className="card__body">
+     <img className="img-center" src={require('@site/static/img/quickguide12.png').default} />
+</div>
+</div>
+
+7. Next, let’s initialize monoZ:Jet using <a target="_blank" href="https://docs.monoz.io/docs/monoZJet/hostcommunicationcommands#module-start">MZSTART </a>. There could be chance that MZSTART might respond back with +MZSTART: 3 or +MZSTART: 4, where monoZ:Jet is retrying to connect to network or monoZ:Link platform. In such cases host is expected to wait for +MZSTART: 0. When searching for network, monoZ:Jet searches all the set bands in incremental order to attach to the best possible network supported in the region, and hence setting the recommended regional bands plays a crucial role to minimize the time to connect with network. 
+
+    <CodeBlock language="javascript" title="Execution Command" className="execution">
+    {`MZSTART`}
+    </CodeBlock>
+
+    <CodeBlock language="javascript" title="Response"  className="responseJet">
+    {`
+     MZOK
+     +MZSTART: 0
+    `}
+    </CodeBlock>
+
+    <div className="card">
+    <div className="card__body">
+     <img className="img-center" src={require('@site/static/img/quickguide13.png').default} />
+    </div>
+    </div>
+8. Once the +MZSTART: 0 is recieved, host can send data to monoZ:Link using the <a target="_blank" href="https://docs.monoz.io/docs/monoZJet/hostcommunicationcommands#data-send">MZSEND</a> command. 
+
+    <CodeBlock language="javascript" title="Execution Command" className="execution">
+    {`MZSEND=quickstartguide_test
+    `}
+    </CodeBlock>
+    
+   <CodeBlock language="javascript" title="Response"  className="responseJet">
+    {`
+     MZOK
+     +MZSEND: 0
+    `}
+    </CodeBlock>
+
+ <div className="card">
+    <div className="card__body">
     <img className="img-center" src={require('@site/static/img/quickguide14.png').default} />
+</div>
+</div>
 
-9.	The transmitted data is received by monoZ:Link through a secure channel, and then data is pushed to the configured server as per configuration settings. The data pushed from monoZ:Jet was successfully received on the 3rd party server via monoZ:Link.
+9. The data is sent to monoZ:Link through a secure channel. From monoZ:Link it is then further pushed to the configured server as per its protocol configuration. The image below shows the successful receipt of data on the 3rd party server thorugh monoZ:Link.
+ <div className="card">
+    <div className="card__body">
     <img className="img-center" src={require('@site/static/img/quickguide15.png').default} />
-10.	Use MZRECEIVE to enable downlink passthrough on monoZ:Jet. Once enabled, monoZ:Jet push the data received from monoZ:Link to the host using the +MZRECEIVE URC. If downlink is required, host needs to enable downlink passthrough using MZRECEIVE after every monoZ:Jet power on, hardware reset and wakeup from MZSLEEP=0.
+</div>
+</div>
+
+10. Use <a target="_blank" href="https://docs.monoz.io/docs/monoZJet/hostcommunicationcommands#dl-data-receive">MZRECEIVE</a> to enable downlink passthrough on monoZ:Jet. Once enabled, monoZ:Jet push the data received from monoZ:Link to the host using the +MZRECEIVE URC. 
+
+    <CodeBlock language="javascript" title="Execution Command" className="execution">
+    {`MZRECEIVE`}
+    </CodeBlock>
+
+    <CodeBlock language="javascript" title="Response"  className="response">
+    {` 
+     MZOK
+     +MZRECEIVE: 0
+    `}
+    </CodeBlock>
+ <div className="card">
+    <div className="card__body">
     <img className="img-center" src={require('@site/static/img/quickguide16.png').default} />
+</div>
+</div>
+
 11.	Let’s send downlink from monoZ:Link.
+ <div className="card">
+    <div className="card__body">
     <img className="img-center" src={require('@site/static/img/quickguide17.png').default} /><br/>
+</div>
+</div>
+    <CodeBlock language="javascript" title="Response"  className="response">
+    {` 
+     +MZRECEIVE: 2,"{"key1":"value1","key2":" value2 "}"
+     `}
+    </CodeBlock>
+     <div className="card">
+    <div className="card__body">
     <img className="img-center" src={require('@site/static/img/quickguide18.png').default} />
- 
-12.	Congrats! With this, you have learnt the basics of enabling connectivity with monoZ:Jet and monoZ:Link. Now go transform your physical products to connected solutions. In case you have any specific questions, create a support request by emailing us at customer-care@meritech.odoo.com
--->
+ </div>
+ </div>
+
+12. Congrats! With this, you have learnt the basics of enabling connectivity with monoZ:Jet and monoZ:Link. Now go transform your physical products to connected solutions. In case you have any specific questions, create a support request by emailing us at customer-care@meritech.odoo.com
