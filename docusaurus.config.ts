@@ -9,6 +9,7 @@ const config: Config = {
 
   url: 'https://docs.monoz.io/',
   baseUrl: '/',
+  trailingSlash: true,
 
   organizationName: 'monoZ',
   projectName: 'monoZ Docs',

@@ -34,7 +34,7 @@ export default function LocaleDropdownNavbarItem({
     console.log('lang', lang);
     if (lang === 'en') {
       newPath = pathname.startsWith('/ja') ? pathname.replace('/ja', '') : pathname;
-    } else if (lang === 'ja') {
+    } else {
       newPath = pathname.startsWith('/ja') ? pathname : `/ja${pathname}`;
     }
     //history.push(newPath);
@@ -42,7 +42,7 @@ export default function LocaleDropdownNavbarItem({
 
     // Append search and hash if available
     //const fullURL = `${newPath}${search}${hash}${queryString}`;
-    //window.location.href = newPath;
+    window.location.href = newPath;
   };
 
   const localeItems = locales.map((locale): LinkLikeNavbarItemProps => {
